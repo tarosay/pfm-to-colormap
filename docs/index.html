@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pfm-to-colormap</title>
+  <meta name="description" content="PFM ファイルを読み込み、viridis カラーマップで可視化して PNG 保存できるブラウザベースのビューア。">
+  <meta name="theme-color" content="#0b1020">
+  <meta name="color-scheme" content="dark">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="pfm-to-colormap">
+  <meta property="og:description" content="PFM ファイルを読み込み、viridis カラーマップで可視化して PNG 保存できるブラウザベースのビューア。">
+  <meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop offset='0' stop-color='%23440154'/%3E%3Cstop offset='0.25' stop-color='%23316488'/%3E%3Cstop offset='0.5' stop-color='%2321958c'/%3E%3Cstop offset='0.75' stop-color='%235ec962'/%3E%3Cstop offset='1' stop-color='%23fde725'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='12' fill='%230b1020'/%3E%3Crect x='10' y='10' width='44' height='44' rx='8' fill='url(%23g)'/%3E%3Cpath d='M20 44 L28 28 L34 34 L44 20' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="pfm-to-colormap">
+  <meta name="twitter:description" content="PFM ファイルを読み込み、viridis カラーマップで可視化して PNG 保存できるブラウザベースのビューア。">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop offset='0' stop-color='%23440154'/%3E%3Cstop offset='0.25' stop-color='%23316488'/%3E%3Cstop offset='0.5' stop-color='%2321958c'/%3E%3Cstop offset='0.75' stop-color='%235ec962'/%3E%3Cstop offset='1' stop-color='%23fde725'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='12' fill='%230b1020'/%3E%3Crect x='10' y='10' width='44' height='44' rx='8' fill='url(%23g)'/%3E%3Cpath d='M20 44 L28 28 L34 34 L44 20' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop offset='0' stop-color='%23440154'/%3E%3Cstop offset='0.25' stop-color='%23316488'/%3E%3Cstop offset='0.5' stop-color='%2321958c'/%3E%3Cstop offset='0.75' stop-color='%235ec962'/%3E%3Cstop offset='1' stop-color='%23fde725'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='180' height='180' rx='36' fill='%230b1020'/%3E%3Crect x='28' y='28' width='124' height='124' rx='24' fill='url(%23g)'/%3E%3Cpath d='M56 122 L78 78 L96 94 L124 56' fill='none' stroke='white' stroke-width='10' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <style>
+    :root { --bg:#0b1020; --panel:#151c33; --panel2:#1b2542; --text:#e8ecf6; --muted:#9fb0d8; --accent:#78a6ff; --border:#2a355d; --danger:#ff6b6b; }
+    * { box-sizing:border-box; }
+    html,body { min-height:100%; }
+    body { margin:0; font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:radial-gradient(1200px 600px at 10% -10%, rgba(120,166,255,0.16), transparent 55%), radial-gradient(900px 500px at 100% 0%, rgba(33,149,140,0.10), transparent 50%), var(--bg); color:var(--text); }
+    .site-header { position:sticky; top:0; z-index:50; backdrop-filter:blur(10px); background:rgba(11,16,32,0.78); border-bottom:1px solid rgba(42,53,93,0.8); }
+    .site-header-inner { max-width:1400px; margin:0 auto; padding:12px 20px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .brand { display:flex; align-items:center; gap:12px; min-width:0; }
+    .brand-mark { width:36px; height:36px; border-radius:10px; flex:0 0 auto; background:linear-gradient(90deg, #440154 0%, #316488 25%, #21958c 50%, #5ec962 75%, #fde725 100%); border:1px solid rgba(255,255,255,0.12); box-shadow:inset 0 1px 0 rgba(255,255,255,0.08), 0 8px 24px rgba(0,0,0,0.28); position:relative; }
+    .brand-mark::after { content:""; position:absolute; inset:8px; border-radius:6px; border:2px solid rgba(255,255,255,0.7); clip-path:polygon(0% 100%, 28% 45%, 48% 64%, 82% 12%, 100% 12%, 100% 100%); opacity:0.9; }
+    .brand-title { font-size:18px; font-weight:700; line-height:1.2; margin:0; }
+    .brand-subtitle { font-size:12px; color:var(--muted); margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .header-badge { flex:0 0 auto; font-size:12px; color:var(--muted); border:1px solid var(--border); background:rgba(255,255,255,0.04); padding:6px 10px; border-radius:999px; }
+    .wrap { max-width:1400px; margin:0 auto; padding:20px; }
+    h1 { font-size:26px; margin:0 0 8px; }
+    .subtitle { color:var(--muted); margin-bottom:20px; }
+    .grid { display:grid; grid-template-columns:360px 1fr; gap:20px; }
+    .panel { background:rgba(21,28,51,0.92); border:1px solid var(--border); border-radius:14px; padding:16px; box-shadow:0 10px 30px rgba(0,0,0,0.25); }
+    .dropzone { border:2px dashed var(--accent); border-radius:12px; padding:24px 16px; text-align:center; background:rgba(120,166,255,0.08); cursor:pointer; transition:.15s ease; }
+    .dropzone.dragover { background:rgba(120,166,255,0.18); transform:scale(1.01); }
+    .row { margin-top:14px; }
+    .row label { display:block; font-size:14px; margin-bottom:6px; color:var(--muted); }
+    input[type="number"], select, button, input[type="file"] { width:100%; border-radius:10px; border:1px solid var(--border); background:var(--panel2); color:var(--text); padding:10px 12px; font:inherit; }
+    input[type="file"] { padding:8px; }
+    .inline { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .actions { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:16px; }
+    button { cursor:pointer; font-weight:600; }
+    button:hover { filter:brightness(1.08); }
+    button.secondary { background:#233056; }
+    .viewer { display:flex; flex-direction:column; gap:12px; }
+    .canvas-wrap { background:#050812; border:1px solid var(--border); border-radius:14px; padding:10px; overflow:hidden; position:relative; min-height:420px; cursor:crosshair; user-select:none; }
+    .canvas-wrap.dragging { cursor:crosshair; }
+    canvas { display:block; image-rendering:pixelated; background:#000; transform-origin:0 0; }
+    .empty-state { position:absolute; inset:10px; display:flex; align-items:center; justify-content:center; pointer-events:none; z-index:1; }
+    .empty-card { max-width:520px; padding:22px 24px; border-radius:16px; border:1px solid rgba(120,166,255,0.24); background:rgba(11,16,32,0.72); box-shadow:0 16px 48px rgba(0,0,0,0.28); text-align:center; }
+    .empty-title { font-weight:700; margin-bottom:8px; }
+    .empty-text { color:var(--muted); font-size:14px; line-height:1.6; }
+    .stats { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:10px; }
+    .stat { background:var(--panel2); border:1px solid var(--border); border-radius:10px; padding:10px 12px; min-height:64px; }
+    .stat .k { color:var(--muted); font-size:12px; margin-bottom:6px; }
+    .stat .v { font-size:14px; word-break:break-all; }
+    .note,.error { font-size:13px; line-height:1.5; color:var(--muted); margin-top:12px; }
+    .error { color:var(--danger); }
+    .legend { width:100%; height:28px; border-radius:8px; border:1px solid var(--border); background:linear-gradient(to right,#440154,#482878,#3e4989,#31688e,#26828e,#1f9e89,#35b779,#6ece58,#b5de2b,#fde725); }
+    .value-overlay { position:absolute; left:12px; top:12px; z-index:20; display:none; padding:8px 10px; border-radius:8px; background:rgba(0,0,0,0.72); color:#fff; font-size:13px; line-height:1.35; pointer-events:none; white-space:pre-line; }
+    .site-footer { max-width:1400px; margin:24px auto 0; padding:0 20px 24px; }
+    .site-footer-inner { border-top:1px solid rgba(42,53,93,0.8); padding-top:14px; color:var(--muted); font-size:12px; display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+    @media (max-width:980px) { .grid { grid-template-columns:1fr; } }
+    @media (max-width:640px) { .site-header-inner { align-items:flex-start; flex-direction:column; } .header-badge { align-self:flex-start; } }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <div>
+          <div class="brand-title">pfm-to-colormap</div>
+          <div class="brand-subtitle">PFM viewer with viridis colormap and PNG export</div>
+        </div>
+      </div>
+      <div class="header-badge">GitHub Pages Ready</div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <h1>pfm-to-colormap</h1>
+    <div class="subtitle">.pfm をドラッグドロップまたは選択して読み込み、viridis カラーマップで表示して PNG 保存します。</div>
+
+    <div class="grid">
+      <div class="panel">
+        <div id="dropzone" class="dropzone">
+          <div><strong>PFM ファイルをここへドロップ</strong></div>
+          <div style="margin-top:8px; color: var(--muted);">または下の選択ボタンで読み込み</div>
+        </div>
+
+        <div class="row">
+          <label for="fileInput">PFM ファイル</label>
+          <input id="fileInput" type="file" accept=".pfm">
+        </div>
+
+        <div class="row">
+          <label for="modeSelect">表示モード</label>
+          <select id="modeSelect">
+            <option value="log">log10 後に viridis（既定）</option>
+            <option value="linear">生の float 値を viridis</option>
+          </select>
+        </div>
+
+        <div class="row inline">
+          <div><label for="minInput">下限値</label><input id="minInput" type="number" step="any"></div>
+          <div><label for="maxInput">上限値</label><input id="maxInput" type="number" step="any"></div>
+        </div>
+
+        <div class="row">
+          <label>viridis</label>
+          <div class="legend"></div>
+        </div>
+
+        <div class="actions">
+          <button id="resetBtn" type="button" class="secondary">既定値に戻す</button>
+          <button id="resetViewBtn" type="button" class="secondary">初期サイズに戻す</button>
+          <button id="downloadBtn" type="button">PNG ダウンロード</button>
+        </div>
+
+        <div class="note">
+          log10 モードの既定範囲は 0.1 ～ 1000 です。<br>
+          linear モードの既定範囲は 0 ～ 13 です。<br>
+          0 は log10 モード時に 0.0001 として扱います。<br>
+          float 最小値は青、float 最大値は赤で表示します。
+        </div>
+        <div id="error" class="error"></div>
+      </div>
+
+      <div class="panel viewer">
+        <div class="stats">
+          <div class="stat"><div class="k">ファイル名</div><div class="v" id="statName">未読込</div></div>
+          <div class="stat"><div class="k">サイズ</div><div class="v" id="statSize">-</div></div>
+          <div class="stat"><div class="k">PFM 形式</div><div class="v" id="statType">-</div></div>
+          <div class="stat"><div class="k">エンディアン</div><div class="v" id="statEndian">-</div></div>
+        </div>
+        <div id="canvasWrap" class="canvas-wrap" title="マウスホイールで拡大縮小、左ドラッグで移動、ダブルクリックでリセット">
+          <div id="emptyState" class="empty-state"><div class="empty-card"><div class="empty-title">PFM ファイルを読み込むとここに表示されます</div><div class="empty-text">ドラッグドロップ、または左側のファイル選択から読み込んでください。読み込み後はホイールで拡大縮小、左ドラッグで移動、ダブルクリックで表示をリセットできます。</div></div></div>
+          <div id="valueOverlay" class="value-overlay"></div>
+          <canvas id="canvas"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer"><div class="site-footer-inner"><div>pfm-to-colormap</div><div>PFM → viridis visualization / PNG export</div></div></footer>
+
+  <script src="data:text/javascript;base64,Y29uc3QgVklSSURJU18yNTY9W1swLjI2NzAwNDAxLDAuMDA0ODc0MzMsMC4zMjk0MTUxOV0sWzAuMjY4NTEwNDgsMC4wMDk2MDQ4MywwLjMzNTQyNjUyXSxbMC4yNjk5NDM4NCwwLjAxNDYyNDk0LDAuMzQxMzc4OTVdLFswLjI3MTMwNDg5LDAuMDE5OTQxODYsMC4zNDcyNjg2Ml0sWzAuMjcyNTkzODQsMC4wMjU1NjMwOSwwLjM1MzA5MzAzXSxbMC4yNzM4MDkzNCwwLjAzMTQ5NzQ4LDAuMzU4ODUyNTZdLFswLjI3NDk1MjQyLDAuMDM3NzUxODEsMC4zNjQ1NDMyM10sWzAuMjc2MDIyMzgsMC4wNDQxNjcyMywwLjM3MDE2NDE4XSxbMC4yNzcwMTg0LDAuMDUwMzQ0MzcsMC4zNzU3MTQ1Ml0sWzAuMjc3OTQxNDMsMC4wNTYzMjQ0NCwwLjM4MTE5MDc0XSxbMC4yNzg3OTA2NywwLjA2MjE0NTM2LDAuMzg2NTkyMDRdLFswLjI3OTU2NTUsMC4wNjc4MzU4NywwLjM5MTkxNzIzXSxbMC4yODAyNjY1OCwwLjA3MzQxNzI0LDAuMzk3MTYzNDldLFswLjI4MDg5MzU4LDAuMDc4OTA3MDMsMC40MDIzMjk0NF0sWzAuMjgxNDQ1ODEsMC4wODQzMTk3LDAuNDA3NDE0MDRdLFswLjI4MTkyMzU4LDAuMDg5NjY2MjIsMC40MTI0MTUyMV0sWzAuMjgyMzI3MzksMC4wOTQ5NTU0NSwwLjQxNzMzMDg2XSxbMC4yODI2NTYzMywwLjEwMDE5NTc2LDAuNDIyMTYwMzJdLFswLjI4MjkxMDQ5LDAuMTA1MzkzNDUsMC40MjY5MDIwMl0sWzAuMjgzMDkwOTUsMC4xMTA1NTMwNywwLjQzMTU1Mzc1XSxbMC4yODMxOTcwNCwwLjExNTY3OTY2LDAuNDM2MTE0ODJdLFswLjI4MzIyODgyLDAuMTIwNzc3MDEsMC40NDA1ODQwNF0sWzAuMjgzMTg2ODQsMC4xMjU4NDc5OSwwLjQ0NDk2MDAwXSxbMC4yODMwNzIsMC4xMzA4OTQ3NywwLjQ0OTI0MTI3XSxbMC4yODI4ODM4OSwwLjEzNTkyMDA1LDAuNDUzNDI3MzRdLFswLjI4MjYyMjk3LDAuMTQwOTI1NTYsMC40NTc1MTcyNl0sWzAuMjgyMjkwMzcsMC4xNDU5MTIzMywwLjQ2MTUwOTk1XSxbMC4yODE4ODY3NiwwLjE1MDg4MTQ3LDAuNDY1NDA0NzRdLFswLjI4MTQxMjI4LDAuMTU1ODM0MjUsMC40NjkyMDEyOF0sWzAuMjgwODY3NzMsMC4xNjA3NzEzMiwwLjQ3Mjg5OTA5XSxbMC4yODAyNTQ2OCwwLjE2NTY5MjcyLDAuNDc2NDk3NjJdLFswLjI3OTU3Mzk5LDAuMTcwNTk4ODQsMC40Nzk5OTY3NV0sWzAuMjc4ODI2MTgsMC4xNzU0OTAyMCwwLjQ4MzM5NjU0XSxbMC4yNzgwMTIzNiwwLjE4MDM2Njg0LDAuNDg2Njk3MDJdLFswLjI3NzEzNDM3LDAuMTg1MjI4MzYsMC40ODk4OTgzMV0sWzAuMjc2MTkzNzYsMC4xOTAwNzQ0NywwLjQ5MzAwMDc0XSxbMC4yNzUxOTExNiwwLjE5NDkwNTQwLDAuNDk2MDA0ODhdLFswLjI3NDEyODAyLDAuMTk5NzIwODYsMC40OTg5MTEzMV0sWzAuMjczMDA1OTYsMC4yMDQ1MjA0OSwwLjUwMTcyMDc2XSxbMC4yNzE4MjgxMiwwLjIwOTMwMzA2LDAuNTA0NDM0MTNdLFswLjI3MDU5NDczLDAuMjE0MDY4OTksMC41MDcwNTI0M10sWzAuMjY5MzA3NTYsMC4yMTg4MTc4MiwwLjUwOTU3Njc4XSxbMC4yNjc5Njg0NiwwLjIyMzU0OTExLDAuNTEyMDA4NDBdLFswLjI2NjU3OTg0LDAuMjI4MjYyMTAsMC41MTQzNDg3MF0sWzAuMjY1MTQ0NTAsMC4yMzI5NTU5MywwLjUxNjU5OTMwXSxbMC4yNjM2NjMyMCwwLjIzNzYzMDc4LDAuNTE4NzYxNjNdLFswLjI2MjEzODAxLDAuMjQyMjg2MTksMC41MjA4MzczNl0sWzAuMjYwNTcxMDMsMC4yNDY5MjE3MCwwLjUyMjgyODIyXSxbMC4yNTg5NjQ1MSwwLjI1MTUzNjg1LDAuNTI0NzM2MDldLFswLjI1NzMyMjQ0LDAuMjU2MTMwNDAsMC41MjY1NjMzMl0sWzAuMjU1NjQ1MTksMC4yNjA3MDI4NCwwLjUyODMxMTUyXSxbMC4yNTM5MzQ5OCwwLjI2NTI1Mzg0LDAuNTI5OTgyNzNdLFswLjI1MjE5NDA0LDAuMjY5NzgzMDYsMC41MzE1NzkwNV0sWzAuMjUwNDI0NjIsMC4yNzQyOTAyNCwwLjUzMzEwMjYxXSxbMC4yNDg2Mjg5OSwwLjI3ODc3NTA5LDAuNTM0NTU1NjFdLFswLjI0NjgxMTQwLDAuMjgzMjM2NjIsMC41MzU5NDA5M10sWzAuMjQ0OTcyMDgsMC4yODc2NzU0NywwLjUzNzI2MDE4XSxbMC4yNDMxMTMyNCwwLjI5MjA5MTU0LDAuNTM4NTE1NjFdLFswLjI0MTIzNzA4LDAuMjk2NDg0NzEsMC41Mzk3MDk0Nl0sWzAuMjM5MzQ1NzUsMC4zMDA4NTQ5NCwwLjU0MDg0Mzk4XSxbMC4yMzc0NDEzOCwwLjMwNTIwMjIyLDAuNTQxOTIxNDBdLFswLjIzNTUyNjA2LDAuMzA5NTI2NTcsMC41NDI5NDM5Nl0sWzAuMjMzNjAyNzcsMC4zMTM4Mjc3MywwLjU0MzkxNDI0XSxbMC4yMzE2NzM1MCwwLjMxODEwNTgwLDAuNTQ0ODM0NDRdLFswLjIyOTczOTI2LDAuMzIyMzYxMjcsMC41NDU3MDYzM10sWzAuMjI3ODAxOTIsMC4zMjY1OTQzMiwwLjU0NjUzMjAwXSxbMC4yMjU4NjMzMCwwLjMzMDgwNTE1LDAuNTQ3MzEzNTNdLFswLjIyMzkyNTE1LDAuMzM0OTk0MDAsMC41NDgwNTI5MV0sWzAuMjIxOTg5MTUsMC4zMzkxNjExNCwwLjU0ODc1MjExXSxbMC4yMjAwNTY5MSwwLjM0MzMwNjg4LDAuNTQ5NDEzMDRdLFswLjIxODEyOTk1LDAuMzQ3NDMxNTQsMC41NTAwMzc1NV0sWzAuMjE2MjA5NzEsMC4zNTE1MzU0OCwwLjU1MDYyNzQzXSxbMC4yMTQyOTc1NywwLjM1NTYxOTA3LDAuNTUxMTg0NDBdLFswLjIxMjM5NDc3LDAuMzU5NjgyNzMsMC41NTE3MTAxMV0sWzAuMjEwNTAzMTAsMC4zNjM3MjY3MSwwLjU1MjIwNjQ2XSxbMC4yMDg2MjM0MiwwLjM2Nzc1MTUxLDAuNTUyNjc0ODZdLFswLjIwNjc1NjI4LDAuMzcxNzU3NzUsMC41NTMxMTY1M10sWzAuMjA0OTAyNTcsMC4zNzU3NDU4OSwwLjU1MzUzMjgyXSxbMC4yMDMwNjMwOSwwLjM3OTcxNjQ0LDAuNTUzOTI1MDVdLFswLjIwMTIzODU0LDAuMzgzNjY5ODksMC41NTQyOTQ0MV0sWzAuMTk5NDI5NTAsMC4zODc2MDY3OCwwLjU1NDY0MjA1XSxbMC4xOTc2MzY1MCwwLjM5MTUyNzYyLDAuNTU0OTY5MDVdLFswLjE5NTg1OTkzLDAuMzk1NDMyOTcsMC41NTUyNzYzN10sWzAuMTk0MTAwMDksMC4zOTkzMjMzNiwwLjU1NTU2NDk0XSxbMC4xOTIzNTcxOSwwLjQwMzE5OTM0LDAuNTU1ODM1NTldLFswLjE5MDYzMTM1LDAuNDA3MDYxNDgsMC41NTYwODkwN10sWzAuMTg4OTIyNTksMC40MTA5MTAzMywwLjU1NjMyNjA2XSxbMC4xODcyMzA4MywwLjQxNDc0NjQ1LDAuNTU2NTQ3MTddLFswLjE4NTU1NTkzLDAuNDE4NTcwNDAsMC41NTY3NTI5Ml0sWzAuMTgzODk3NjMsMC40MjIzODI3NSwwLjU1Njk0Mzc3XSxbMC4xODIyNTU2MSwwLjQyNjE4NDA1LDAuNTU3MTIwMTBdLFswLjE4MDYyOTQ5LDAuNDI5OTc0ODYsMC41NTcyODIyMV0sWzAuMTc5MDE4NzksMC40MzM3NTU3MiwwLjU1NzQzMDM1XSxbMC4xNzc0MjI5OCwwLjQzNzUyNzIwLDAuNTU3NTY0NjZdLFswLjE3NTg0MTQ4LDAuNDQxMjg5ODEsMC41NTc2ODUyNl0sWzAuMTc0MjczNjMsMC40NDUwNDQxMCwwLjU1Nzc5MjE2XSxbMC4xNzI3MTg3NiwwLjQ0ODc5MDYwLDAuNTU3ODg1MzJdLFswLjE3MTE3NjE1LDAuNDUyNTI5ODAsMC41NTc5NjQ2NF0sWzAuMTY5NjQ1NzMsMC40NTYyNjIwOSwwLjU1ODAzMDM0XSxbMC4xNjgxMjY0MSwwLjQ1OTk4ODAyLDAuNTU4MDgxOTldLFswLjE2NjYxNzEwLDAuNDYzNzA4MTMsMC41NTgxMTkxM10sWzAuMTY1MTE3MDMsMC40Njc0MjI5MCwwLjU1ODE0MTQxXSxbMC4xNjM2MjU0MywwLjQ3MTEzMjc4LDAuNTU4MTQ4NDJdLFswLjE2MjE0MTU1LDAuNDc0ODM4MjEsMC41NTgxMzk2N10sWzAuMTYwNjY0NjcsMC40Nzg1Mzk2MSwwLjU1ODExNDY2XSxbMC4xNTkxOTQxMywwLjQ4MjIzNzQwLDAuNTU4MDcyODBdLFswLjE1NzcyOTMzLDAuNDg1OTMxOTcsMC41NTgwMTM0N10sWzAuMTU2MjY5NzMsMC40ODk2MjM3MCwwLjU1NzkzNjAwXSxbMC4xNTQ4MTQ4OCwwLjQ5MzMxMjkzLDAuNTU3ODM5NjddLFswLjE1MzM2NDQ1LDAuNDk3MDAwMDMsMC41NTc3MjM3MV0sWzAuMTUxOTE4MjAsMC41MDA2ODUyOSwwLjU1NzU4NzMzXSxbMC4xNTA0NzYwNSwwLjUwNDM2OTA0LDAuNTU3NDI5NjhdLFswLjE0OTAzOTE4LDAuNTA4MDUxMzYsMC41NTcyNTA1MF0sWzAuMTQ3NjA3MzEsMC41MTE3MzI2MywwLjU1NzA0ODYxXSxbMC4xNDYxODAyNiwwLjUxNTQxMzE2LDAuNTU2ODIyNzFdLFswLjE0NDc1ODYzLDAuNTE5MDkzMTksMC41NTY1NzE4MV0sWzAuMTQzMzQzMjcsMC41MjI3NzI5MiwwLjU1NjI5NDkxXSxbMC4xNDE5MzUyNywwLjUyNjQ1MjU0LDAuNTU1OTkwOTddLFswLjE0MDUzNTk5LDAuNTMwMTMyMTksMC41NTU2NTg5M10sWzAuMTM5MTQ3MDgsMC41MzM4MTIwMSwwLjU1NTI5NzczXSxbMC4xMzc3NzA0OCwwLjUzNzQ5MjEzLDAuNTU0OTA2MjVdLFswLjEzNjQwODUwLDAuNTQxMTcyNjQsMC41NTQ0ODMzOV0sWzAuMTM1MDY1NjEsMC41NDQ4NTMzNSwwLjU1NDAyOTA2XSxbMC4xMzM3NDI5OSwwLjU0ODUzNDU4LDAuNTUzNTQxMDhdLFswLjEzMjQ0NDAxLDAuNTUyMjE2MzcsMC41NTMwMTgyOF0sWzAuMTMxMTcyNDksMC41NTU4OTg3MiwwLjU1MjQ1OTQ4XSxbMC4xMjk5MzI3MCwwLjU1OTU4MTYyLDAuNTUxODYzNTRdLFswLjEyODcyOTM4LDAuNTYzMjY1MDMsMC41NTEyMjkyN10sWzAuMTI3NTY3NzEsMC41NjY5NDg5MSwwLjU1MDU1NTUxXSxbMC4xMjY0NTMzOCwwLjU3MDYzMzE2LDAuNTQ5ODQxMTBdLFswLjEyNTM5MzgzLDAuNTc0MzE3NTQsMC41NDkwODU2NF0sWzAuMTI0Mzk0NzQsMC41NzgwMDIwNSwwLjU0ODI4NzQwXSxbMC4xMjM0NjI4MSwwLjU4MTY4NjYxLDAuNTQ3NDQ0OThdLFswLjEyMjYwNTYyLDAuNTg1MzcxMDUsMC41NDY1NTcyMl0sWzAuMTIxODMxMjIsMC41ODkwNTUyMSwwLjU0NTYyMjk4XSxbMC4xMjExNDgwNywwLjU5MjczODg5LDAuNTQ0NjQxMTRdLFswLjEyMDU2NTAxLDAuNTk2NDIxODcsMC41NDM2MTA1OF0sWzAuMTIwMDkxNTQsMC42MDAxMDM4NywwLjU0MjUzMDQzXSxbMC4xMTk3Mzc1NiwwLjYwMzc4NDU5LDAuNTQxMzk5OTldLFswLjExOTUxMTYzLDAuNjA3NDYzODgsMC41NDAyMTc1MV0sWzAuMTE5NDIzNDEsMC42MTExNDE0NiwwLjUzODk4MTkyXSxbMC4xMTk0ODI1NSwwLjYxNDgxNzAyLDAuNTM3NjkyMTldLFswLjExOTY5ODU4LDAuNjE4NDkwMjUsMC41MzYzNDczM10sWzAuMTIwMDgwNzksMC42MjIxNjA4MSwwLjUzNDk0NjMzXSxbMC4xMjA2MzgyNCwwLjYyNTgyODMzLDAuNTMzNDg4MzRdLFswLjEyMTM3OTcyLDAuNjI5NDkyNDIsMC41MzE5NzI3NV0sWzAuMTIyMzEyNDQsMC42MzMxNTI3NywwLjUzMDM5ODA4XSxbMC4xMjM0NDM1OCwwLjYzNjgwODk5LDAuNTI4NzYzNDNdLFswLjEyNDc3OTUzLDAuNjQwNDYwNjksMC41MjcwNjc5Ml0sWzAuMTI2MzI1ODEsMC42NDQxMDc0NCwwLjUyNTMxMDY5XSxbMC4xMjgwODcwMywwLjY0Nzc0ODgxLDAuNTIzNDkwOTJdLFswLjEzMDA2Njg4LDAuNjUxMzg0MzYsMC41MjE2MDc5MV0sWzAuMTMyMjY3OTcsMC42NTUwMTM2MywwLjUxOTY2MDg2XSxbMC4xMzQ2OTE4MywwLjY1ODYzNjE5LDAuNTE3NjQ4ODBdLFswLjEzNzMzOTIxLDAuNjYyMjUxNTcsMC41MTU1NzEwMV0sWzAuMTQwMjA5OTEsMC42NjU4NTkyNywwLjUxMzQyNjgwXSxbMC4xNDMzMDI5MSwwLjY2OTQ1ODgxLDAuNTExMjE1NDldLFswLjE0NjYxNjQwLDAuNjczMDQ5NjgsMC41MDg5MzY0NF0sWzAuMTUwMTQ3ODIsMC42NzY2MzEzOSwwLjUwNjU4ODkwXSxbMC4xNTM4OTQwNSwwLjY4MDIwMzQzLDAuNTA0MTcyMTddLFswLjE1Nzg1MTQ2LDAuNjgzNzY1MjUsMC41MDE2ODU3NF0sWzAuMTYyMDE1OTgsMC42ODczMTYzMiwwLjQ5OTEyOTA2XSxbMC4xNjYzODMyMCwwLjY5MDg1NjExLDAuNDk2NTAxNjNdLFswLjE3MDk0ODQwLDAuNjk0Mzg0MDUsMC40OTM4MDI5NF0sWzAuMTc1NzA2NzEsMC42OTc4OTk2MCwwLjQ5MTAzMjUyXSxbMC4xODA2NTMxNCwwLjcwMTQwMjIyLDAuNDg4MTg5MzhdLFswLjE4NTc4MjY2LDAuNzA0ODkxMzMsMC40ODUyNzMyNl0sWzAuMTkxMDkwMTgsMC43MDgzNjYzNSwwLjQ4MjI4Mzk1XSxbMC4xOTY1NzA2MywwLjcxMTgyNjY4LDAuNDc5MjIxMDhdLFswLjIwMjIxOTAyLDAuNzE1MjcxNzUsMC40NzYwODQzMV0sWzAuMjA4MDMwNDUsMC43MTg3MDA5NSwwLjQ3Mjg3MzMwXSxbMC4yMTQwMDAxNSwwLjcyMjExMzcxLDAuNDY5NTg3NzRdLFswLjIyMDEyMzgxLDAuNzI1NTA5NDUsMC40NjYyMjYzOF0sWzAuMjI2Mzk2OTAsMC43Mjg4ODc1MywwLjQ2Mjc4OTM0XSxbMC4yMzI4MTQ5OCwwLjczMjI0NzM1LDAuNDU5Mjc2NzVdLFswLjIzOTM3MzkwLDAuNzM1NTg4MjgsMC40NTU2ODgzOF0sWzAuMjQ2MDY5NjgsMC43Mzg5MDk3MiwwLjQ1MjAyNDA1XSxbMC4yNTI4OTg1MSwwLjc0MjIxMTA0LDAuNDQ4MjgzNTVdLFswLjI1OTg1Njc2LDAuNzQ1NDkxNjIsMC40NDQ0NjY3M10sWzAuMjY2OTQxMjcsMC43NDg3NTA4NCwwLjQ0MDU3Mjg0XSxbMC4yNzQxNDkyMiwwLjc1MTk4ODA3LDAuNDM2NjAwOTBdLFswLjI4MTQ3NjgxLDAuNzU1MjAyNjYsMC40MzI1NTIwN10sWzAuMjg4OTIxMDIsMC43NTgzOTM5OSwwLjQyODQyNjI2XSxbMC4yOTY0Nzg5OSwwLjc2MTU2MTQyLDAuNDI0MjIzNDFdLFswLjMwNDE0Nzk2LDAuNzY0NzA0MzMsMC40MTk5NDM0Nl0sWzAuMzExOTI1MzQsMC43Njc4MjIwNywwLjQxNTU4NjM4XSxbMC4zMTk4MDg2MCwwLjc3MDkxNDAzLDAuNDExMTUyMTVdLFswLjMyNzc5NTgwLDAuNzczOTc5NTMsMC40MDY2NDAxMV0sWzAuMzM1ODg1MzksMC43NzcwMTc5MCwwLjQwMjA0OTE3XSxbMC4zNDQwNzQxMSwwLjc4MDAyODU1LDAuMzk3MzgxMDNdLFswLjM1MjM1OTg1LDAuNzgzMDEwODYsMC4zOTI2MzU3OV0sWzAuMzYwNzQwNTMsMC43ODU5NjQxOSwwLjM4NzgxMzUzXSxbMC4zNjkyMTQyMCwwLjc4ODg4NzkzLDAuMzgyOTE0MzhdLFswLjM3Nzc3ODkyLDAuNzkxNzgxNDYsMC4zNzc5Mzg1MF0sWzAuMzg2NDMyODIsMC43OTQ2NDQxNSwwLjM3Mjg4NjA2XSxbMC4zOTUxNzQwOCwwLjc5NzQ3NTQxLDAuMzY3NzU3MjZdLFswLjQwNDAwMTAxLDAuODAwMjc0NjEsMC4zNjI1NTIyM10sWzAuNDEyOTEzNTAsMC44MDMwNDA5OSwwLjM1NzI2ODkzXSxbMC40MjE5MDgxMywwLjgwNTc3NDEyLDAuMzUxOTEwMDldLFswLjQzMDk4MzE3LDAuODA4NDczNDMsMC4zNDY0NzYwN10sWzAuNDQwMTM2OTEsMC44MTExMzgzNiwwLjM0MDk2NzMwXSxbMC40NDkzNjc2MywwLjgxMzc2ODM1LDAuMzM1Mzg0MjZdLFswLjQ1ODY3MzYyLDAuODE2MzYyODgsMC4zMjk3Mjc0OV0sWzAuNDY4MDUzMTQsMC44MTg5MjE0MywwLjMyMzk5NzYxXSxbMC40Nzc1MDQ0NiwwLjgyMTQ0MzUxLDAuMzE4MTk1MjldLFswLjQ4NzAyNTgwLDAuODIzOTI4NjIsMC4zMTIzMjEzM10sWzAuNDk2NjE1MzYsMC44MjYzNzYzMywwLjMwNjM3NjYxXSxbMC41MDYyNzEzMCwwLjgyODc4NjIxLDAuMzAwMzYyMTFdLFswLjUxNTk5MTgyLDAuODMxMTU3ODQsMC4yOTQyNzg4OF0sWzAuNTI1Nzc2MjIsMC44MzM0OTA2NCwwLjI4ODEyNjUwXSxbMC41MzU2MjExMCwwLjgzNTc4NDUyLDAuMjgxOTA4MzJdLFswLjU0NTUyNDQwLDAuODM4MDM5MTgsMC4yNzU2MjYwMl0sWzAuNTU1NDgzOTcsMC44NDAyNTQzNywwLjI2OTI4MTQ3XSxbMC41NjU0OTc2MCwwLjg0MjQyOTkwLDAuMjYyODc2ODNdLFswLjU3NTU2Mjk3LDAuODQ0NTY1NjEsMC4yNTY0MTQ1N10sWzAuNTg1Njc3NzIsMC44NDY2NjEzOSwwLjI0OTg5NzQ4XSxbMC41OTU4MzkzNCwwLjg0ODcxNzIyLDAuMjQzMzI4NzhdLFswLjYwNjA0NTI4LDAuODUwNzMzMTAsMC4yMzY3MTIxNF0sWzAuNjE2MjkyODMsMC44NTI3MDkxMiwwLjIzMDA1MTc5XSxbMC42MjY1NzkyMywwLjg1NDY0NTQzLDAuMjIzMzUyNThdLFswLjYzNjkwMTU3LDAuODU2NTQyMjYsMC4yMTY2MjAxMl0sWzAuNjQ3MjU2ODUsMC44NTgzOTk5MSwwLjIwOTg2MDg2XSxbMC42NTc2NDE5NywwLjg2MDIxODc4LDAuMjAzMDgyMjldLFswLjY2ODA1MzY5LDAuODYxOTk5MzIsMC4xOTYyOTMwN10sWzAuNjc4NDg4NjgsMC44NjM3NDIxMSwwLjE4OTUwMzI2XSxbMC42ODg5NDM1MSwwLjg2NTQ0Nzc5LDAuMTgyNzI0NTVdLFswLjY5OTQxNDYzLDAuODY3MTE3MTEsMC4xNzU5NzA1NV0sWzAuNzA5ODk4NDIsMC44Njg3NTA5MiwwLjE2OTI1NzEyXSxbMC43MjAzOTExNSwwLjg3MDM1MDE1LDAuMTYyNjAyNzNdLFswLjczMDg4OTAyLDAuODcxOTE1ODQsMC4xNTYwMjg5NF0sWzAuNzQxMzg4MDMsMC44NzM0NDkxOCwwLjE0OTU2MTAxXSxbMC43NTE4ODQxNCwwLjg3NDk1MTQzLDAuMTQzMjI4MjhdLFswLjc2MjM3MzQyLDAuODc2NDIzOTIsMC4xMzcwNjQ0OV0sWzAuNzcyODUxODMsMC44Nzc4NjgwOCwwLjEzMTEwODY0XSxbMC43ODMzMTUzNSwwLjg3OTI4NTQ1LDAuMTI1NDA1MzhdLFswLjc5Mzc1OTk0LDAuODgwNjc3NjMsMC4xMjAwMDUzMl0sWzAuODA0MTgxNTksMC44ODIwNDYzMiwwLjExNDk2NTA1XSxbMC44MTQ1NzYzNCwwLjg4MzM5MzI5LDAuMTEwMzQ2NzhdLFswLjgyNDk0MDI4LDAuODg0NzIwMzYsMC4xMDYyMTcyNF0sWzAuODM1MjY5NTksMC44ODYwMjk0MywwLjEwMjY0NTkwXSxbMC44NDU1NjA1NiwwLjg4NzMyMjQzLDAuMDk5NzAyMTldLFswLjg1NTgwOTYwLDAuODg4NjAxMzQsMC4wOTc0NTE4Nl0sWzAuODY2MDEzMjUsMC44ODk4NjgxNSwwLjA5NTk1Mjc3XSxbMC44NzYxNjgyNCwwLjg5MTEyNDg3LDAuMDk1MjUwNDZdLFswLjg4NjI3MTQ2LDAuODkyMzczNTMsMC4wOTUzNzQzOV0sWzAuODk2MzIwMDIsMC44OTM2MTYxNCwwLjA5NjMzNTM4XSxbMC45MDYzMTEyMSwwLjg5NDg1NDY3LDAuMDk4MTI0OTZdLFswLjkxNjI0MjEyLDAuODk2MDkxMjcsMC4xMDA3MTY4MF0sWzAuOTI2MTA1NzksMC44OTczMjk3NywwLjEwNDA3MDY3XSxbMC45MzU5MDQ0NCwwLjg5ODU3MDQwLDAuMTA4MTMwOTRdLFswLjk0NTYzNjI2LDAuODk5ODE1MDAsMC4xMTI4Mzc3M10sWzAuOTU1Mjk5NzIsMC45MDEwNjUzNCwwLjExODEyODMyXSxbMC45NjQ4OTM1MywwLjkwMjMyMzExLDAuMTIzOTQwNTFdLFswLjk3NDQxNjY1LDAuOTAzNTg5OTEsMC4xMzAyMTQ5NF0sWzAuOTgzODY4MjksMC45MDQ4NjcyNiwwLjEzNjg5NjcxXSxbMC45OTMyNDc4OSwwLjkwNjE1NjU3LDAuMTQzOTM2MjBdXTtmdW5jdGlvbiB2aXJpZGlzKE49VklSSURJU18yNTYubGVuZ3RoKXtyZXR1cm4gVklSSURJU18yNTY7fWZ1bmN0aW9uIHZpcmlkaXNBdCh0KXtjb25zdCBQPVZJUklESVNfMjU2Lmxlbmd0aDt0PU1hdGgubWF4KDAsTWF0aC5taW4oMSx0KSk7Y29uc3QgeD10KihQLTEpO2NvbnN0IGowPU1hdGguZmxvb3IoeCk7Y29uc3QgaTE9TWF0aC5taW4oajArMSxQLTEpO2NvbnN0IGY9eC1qMDtjb25zdCBjMD1WSVJJRElTXzI1NltqMF07Y29uc3QgYzE9VklSSURJU18yNTZbajFdO2NvbnN0IHI9YzBbMF0rKGMxWzBdLWMwWzBdKSpmO2NvbnN0IGc9YzBbMV0rKGMxWzFdLWMwWzFdKSpmO2NvbnN0IGI9YzBbMl0rKGMxWzJdLWMwWzJdKSpmO3JldHVybiBbTWF0aC5yb3VuZChyKjI1NSksTWF0aC5yb3VuZChnKjI1NSksTWF0aC5yb3VuZChiKjI1NSldO30="></script>
+  <script>
+    const FLOAT32_MIN_SENTINEL = -3.4028234663852886e+38, FLOAT32_MAX_SENTINEL = 3.4028234663852886e+38, LOG_DEFAULT_MIN = 0.1, LOG_DEFAULT_MAX = 1000, LINEAR_DEFAULT_MIN = 0, LINEAR_DEFAULT_MAX = 13, ZERO_REPLACEMENT = 0.0001;
+    const fileInput = document.getElementById('fileInput'), dropzone = document.getElementById('dropzone'), modeSelect = document.getElementById('modeSelect'), minInput = document.getElementById('minInput'), maxInput = document.getElementById('maxInput'), resetBtn = document.getElementById('resetBtn'), resetViewBtn = document.getElementById('resetViewBtn'), downloadBtn = document.getElementById('downloadBtn'), canvasWrap = document.getElementById('canvasWrap'), valueOverlay = document.getElementById('valueOverlay'), emptyState = document.getElementById('emptyState'), canvas = document.getElementById('canvas'), ctx = canvas.getContext('2d'), errorEl = document.getElementById('error'), statName = document.getElementById('statName'), statSize = document.getElementById('statSize'), statType = document.getElementById('statType'), statEndian = document.getElementById('statEndian');
+    let current = null, viewScale = 1, viewOffsetX = 0, viewOffsetY = 0, isDragging = false, dragStartX = 0, dragStartY = 0, dragOriginX = 0, dragOriginY = 0, showValueActive = false;
+    function updateEmptyState(){ if (emptyState) emptyState.style.display = current ? 'none' : 'flex'; }
+    function applyCanvasTransform(){ canvas.style.transform = `translate(${viewOffsetX}px, ${viewOffsetY}px) scale(${viewScale})`; }
+    function resetView(){ if (!current){ viewScale=1; viewOffsetX=0; viewOffsetY=0; applyCanvasTransform(); updateEmptyState(); return; } const rect = canvasWrap.getBoundingClientRect(); const fitScaleX = rect.width / current.width, fitScaleY = rect.height / current.height; viewScale = Math.min(fitScaleX, fitScaleY); if (!Number.isFinite(viewScale) || viewScale <= 0) viewScale = 1; viewOffsetX = (rect.width - current.width * viewScale) / 2; viewOffsetY = (rect.height - current.height * viewScale) / 2; applyCanvasTransform(); }
+    function hideValueOverlay(){ showValueActive = false; valueOverlay.style.display = 'none'; }
+    function getImagePointFromClient(clientX, clientY){ if(!current) return null; const rect = canvasWrap.getBoundingClientRect(); const localX = clientX - rect.left, localY = clientY - rect.top; const imageX = Math.floor((localX - viewOffsetX) / viewScale), imageY = Math.floor((localY - viewOffsetY) / viewScale); if (imageX < 0 || imageY < 0 || imageX >= current.width || imageY >= current.height) return null; return { imageX, imageY, localX, localY }; }
+    function formatFloatValue(v){ if (Number.isNaN(v)) return 'NaN'; if (isFloatMin(v)) return 'float.MinValue'; if (isFloatMax(v)) return 'float.MaxValue'; if (!Number.isFinite(v)) return String(v); return v.toPrecision(9); }
+    function updateValueOverlay(clientX, clientY){ if (!current) return; const pt = getImagePointFromClient(clientX, clientY); if (!pt){ valueOverlay.style.display='none'; return; } const value = current.values[pt.imageY * current.width + pt.imageX]; valueOverlay.textContent = `x=${pt.imageX}, y=${pt.imageY}
+${formatFloatValue(value)}`; valueOverlay.style.display = 'block'; }
+    function setDefaultsForMode(mode){ if (mode === 'log'){ minInput.value = String(LOG_DEFAULT_MIN); maxInput.value = String(LOG_DEFAULT_MAX); } else { minInput.value = String(LINEAR_DEFAULT_MIN); maxInput.value = String(LINEAR_DEFAULT_MAX); } }
+    function clamp01(v){ return Math.min(1, Math.max(0, v)); }
+    function approximatelyEqual(a,b){ if (a === b) return true; const diff=Math.abs(a-b), scale=Math.max(1,Math.abs(a),Math.abs(b)); return diff <= scale * 1e-6; }
+    function isFloatMin(v){ return approximatelyEqual(v, FLOAT32_MIN_SENTINEL) || v === Number.NEGATIVE_INFINITY; }
+    function isFloatMax(v){ return approximatelyEqual(v, FLOAT32_MAX_SENTINEL) || v === Number.POSITIVE_INFINITY; }
+    function viridisColor01(t){ const n = VIRIDIS_256.length, x = clamp01(t) * (n - 1), i0 = Math.floor(x), i1 = Math.min(n - 1, i0 + 1), f = x - i0, c0 = VIRIDIS_256[i0], c1 = VIRIDIS_256[i1]; return [Math.round((c0[0] * (1 - f) + c1[0] * f) * 255), Math.round((c0[1] * (1 - f) + c1[1] * f) * 255), Math.round((c0[2] * (1 - f) + c1[2] * f) * 255)]; }
+    function parsePFM(arrayBuffer){ const bytes = new Uint8Array(arrayBuffer); let pos = 0; function readLine(){ if (pos >= bytes.length) throw new Error('PFM header is truncated.'); let start = pos; while (pos < bytes.length && bytes[pos] !== 0x0A) pos++; let line = new TextDecoder().decode(bytes.slice(start, pos)); if (pos < bytes.length && bytes[pos] === 0x0A) pos++; if (line.endsWith('\r')) line = line.slice(0, -1); return line; } function readNonCommentLine(){ let line = readLine(); while (line.trim().startsWith('#') || line.trim() === '') line = readLine(); return line; } const type = readNonCommentLine(); if (type !== 'PF' && type !== 'Pf') throw new Error('PFM signature must be PF or Pf.'); const dimLine = readNonCommentLine(), dimMatch = dimLine.match(/^(\d+)\s+(\d+)$/); if (!dimMatch) throw new Error('PFM dimensions are invalid.'); const width = Number(dimMatch[1]), height = Number(dimMatch[2]); const scaleLine = readNonCommentLine(), scale = Number(scaleLine); if (!Number.isFinite(scale) || scale === 0) throw new Error('PFM scale/endian line is invalid.'); const littleEndian = scale < 0, channels = type === 'PF' ? 3 : 1, expectedFloats = width * height * channels, expectedBytes = expectedFloats * 4; if (pos + expectedBytes > arrayBuffer.byteLength) throw new Error('PFM pixel data is shorter than expected.'); const view = new DataView(arrayBuffer, pos, expectedBytes), values = new Float32Array(width * height); let p = 0; for (let y = height - 1; y >= 0; y--){ for (let x = 0; x < width; x++){ if (channels === 1){ values[y * width + x] = view.getFloat32(p, littleEndian); p += 4; } else { const r = view.getFloat32(p, littleEndian); p += 4; const g = view.getFloat32(p, littleEndian); p += 4; const b = view.getFloat32(p, littleEndian); p += 4; values[y * width + x] = (r + g + b) / 3; } } } return { width, height, type, littleEndian, values }; }
+    function colorForValue(value, mode, userMin, userMax){ if (Number.isNaN(value)) return [0,0,0]; if (isFloatMin(value)) return [0,0,255]; if (isFloatMax(value)) return [255,0,0]; let mappedValue = value, lo = userMin, hi = userMax; if (mode === 'log'){ if (mappedValue === 0) mappedValue = ZERO_REPLACEMENT; if (mappedValue < 0) return [0,0,0]; mappedValue = Math.log10(mappedValue); lo = Math.log10(userMin); hi = Math.log10(userMax); } if (!Number.isFinite(mappedValue) || !Number.isFinite(lo) || !Number.isFinite(hi) || hi === lo) return [0,0,0]; return viridisColor01((mappedValue - lo) / (hi - lo)); }
+    function render(){ errorEl.textContent=''; if (!current) return; const mode = modeSelect.value, minVal = Number(minInput.value), maxVal = Number(maxInput.value); if (!Number.isFinite(minVal) || !Number.isFinite(maxVal)){ errorEl.textContent = '下限値・上限値は数値で入力してください。'; return; } if (maxVal <= minVal){ errorEl.textContent = '上限値は下限値より大きくしてください。'; return; } if (mode === 'log' && (minVal <= 0 || maxVal <= 0)){ errorEl.textContent = 'log10 モードでは下限値・上限値は 0 より大きい必要があります。'; return; } const { width, height, values } = current; canvas.width = width; canvas.height = height; const image = ctx.createImageData(width, height), out = image.data; for (let i = 0; i < values.length; i++){ const [r,g,b] = colorForValue(values[i], mode, minVal, maxVal), j = i * 4; out[j] = r; out[j+1] = g; out[j+2] = b; out[j+3] = 255; } ctx.putImageData(image, 0, 0); updateEmptyState(); }
+    async function loadPFMFile(file){ errorEl.textContent=''; try { const buf = await file.arrayBuffer(); current = parsePFM(buf); statName.textContent = file.name; statSize.textContent = `${current.width} x ${current.height}`; statType.textContent = current.type === 'PF' ? 'PF (RGB→平均値)' : 'Pf (grayscale)'; statEndian.textContent = current.littleEndian ? 'little endian' : 'big endian'; render(); resetView(); updateEmptyState(); } catch (err){ current = null; ctx.clearRect(0, 0, canvas.width, canvas.height); statName.textContent='未読込'; statSize.textContent='-'; statType.textContent='-'; statEndian.textContent='-'; errorEl.textContent = err instanceof Error ? err.message : String(err); updateEmptyState(); } }
+    dropzone.addEventListener('click',()=>fileInput.click());
+    dropzone.addEventListener('dragover',(e)=>{ e.preventDefault(); dropzone.classList.add('dragover'); });
+    dropzone.addEventListener('dragleave',()=>dropzone.classList.remove('dragover'));
+    dropzone.addEventListener('drop',(e)=>{ e.preventDefault(); dropzone.classList.remove('dragover'); const file = e.dataTransfer.files && e.dataTransfer.files[0]; if (file) loadPFMFile(file); });
+    fileInput.addEventListener('change',()=>{ const file = fileInput.files && fileInput.files[0]; if (file) loadPFMFile(file); });
+    modeSelect.addEventListener('change',()=>{ setDefaultsForMode(modeSelect.value); render(); });
+    minInput.addEventListener('input',render); maxInput.addEventListener('input',render);
+    resetBtn.addEventListener('click',()=>{ setDefaultsForMode(modeSelect.value); render(); });
+    resetViewBtn.addEventListener('click',()=>{ if (current) resetView(); });
+    canvasWrap.addEventListener('wheel',(e)=>{ if (!current) return; e.preventDefault(); const rect = canvasWrap.getBoundingClientRect(), px = e.clientX - rect.left, py = e.clientY - rect.top, contentX = (px - viewOffsetX) / viewScale, contentY = (py - viewOffsetY) / viewScale, factor = e.deltaY < 0 ? 1.1 : 1 / 1.1, newScale = Math.min(64, Math.max(0.1, viewScale * factor)); viewOffsetX = px - contentX * newScale; viewOffsetY = py - contentY * newScale; viewScale = newScale; applyCanvasTransform(); }, { passive:false });
+    canvasWrap.addEventListener('pointerdown',(e)=>{ if (!current || e.button !== 0) return; isDragging = true; showValueActive = true; dragStartX = e.clientX; dragStartY = e.clientY; dragOriginX = viewOffsetX; dragOriginY = viewOffsetY; canvasWrap.classList.add('dragging'); canvasWrap.setPointerCapture(e.pointerId); updateValueOverlay(e.clientX, e.clientY); });
+    canvasWrap.addEventListener('pointermove',(e)=>{ if (!isDragging) return; viewOffsetX = dragOriginX + (e.clientX - dragStartX); viewOffsetY = dragOriginY + (e.clientY - dragStartY); applyCanvasTransform(); if (showValueActive) updateValueOverlay(e.clientX, e.clientY); });
+    function endDrag(e){ if (!isDragging) return; isDragging = false; canvasWrap.classList.remove('dragging'); if (e && canvasWrap.hasPointerCapture(e.pointerId)) canvasWrap.releasePointerCapture(e.pointerId); hideValueOverlay(); }
+    canvasWrap.addEventListener('pointerup',endDrag); canvasWrap.addEventListener('pointercancel',endDrag); canvasWrap.addEventListener('pointerleave',()=>{ if (!isDragging) hideValueOverlay(); }); canvasWrap.addEventListener('dblclick',()=>{ if (current) resetView(); });
+    window.addEventListener('resize',()=>{ if (current) resetView(); });
+    function formatFilenameValue(value){ const s = String(value).trim(); if (!s) return 'na'; return s.replace(/\+/g,'').replace(/[^0-9a-zA-Z._-]+/g,'_').replace(/_+/g,'_').replace(/^_+|_+$/g,'') || 'na'; }
+    downloadBtn.addEventListener('click',()=>{ if (!current){ errorEl.textContent = '先に PFM ファイルを読み込んでください。'; return; } const link = document.createElement('a'), base = statName.textContent.replace(/\.pfm$/i,''), minTag = formatFilenameValue(minInput.value), maxTag = formatFilenameValue(maxInput.value); link.href = canvas.toDataURL('image/png'); link.download = `${base || 'pfm-colormap'}_min-${minTag}_max-${maxTag}.png`; link.click(); });
+    setDefaultsForMode('log'); applyCanvasTransform(); updateEmptyState();
+  </script>
+</body>
+</html>
