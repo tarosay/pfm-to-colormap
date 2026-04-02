@@ -4,18 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>pfm-to-colormap</title>
-  <meta name="description" content="PFM ファイルを読み込み、viridis カラーマップで可視化して PNG 保存できるブラウザベースのビューア。">
+  <meta name="description" content="PFM / CSV ファイルを読み込み、viridis / jet カラーマップで可視化して PNG 保存できるブラウザベースのビューア。">
   <meta name="theme-color" content="#0b1020">
   <meta name="color-scheme" content="dark">
   <meta property="og:type" content="website">
   <meta property="og:title" content="pfm-to-colormap">
-  <meta property="og:description" content="PFM ファイルを読み込み、viridis カラーマップで可視化して PNG 保存できるブラウザベースのビューア。">
-  <meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop offset='0' stop-color='%23440154'/%3E%3Cstop offset='0.25' stop-color='%23316488'/%3E%3Cstop offset='0.5' stop-color='%2321958c'/%3E%3Cstop offset='0.75' stop-color='%235ec962'/%3E%3Cstop offset='1' stop-color='%23fde725'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='12' fill='%230b1020'/%3E%3Crect x='10' y='10' width='44' height='44' rx='8' fill='url(%23g)'/%3E%3Cpath d='M20 44 L28 28 L34 34 L44 20' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <meta property="og:description" content="PFM / CSV ファイルを読み込み、viridis / jet カラーマップで可視化して PNG 保存できるブラウザベースのビューア。">
+  <meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop offset='0' stop-color='%2300007f'/%3E%3Cstop offset='0.2' stop-color='%23007fff'/%3E%3Cstop offset='0.5' stop-color='%237fff7f'/%3E%3Cstop offset='0.8' stop-color='%23ff7f00'/%3E%3Cstop offset='1' stop-color='%237f0000'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='12' fill='%230b1020'/%3E%3Crect x='10' y='10' width='44' height='44' rx='8' fill='url(%23g)'/%3E%3Cpath d='M20 44 L28 28 L34 34 L44 20' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="pfm-to-colormap">
-  <meta name="twitter:description" content="PFM ファイルを読み込み、viridis カラーマップで可視化して PNG 保存できるブラウザベースのビューア。">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop offset='0' stop-color='%23440154'/%3E%3Cstop offset='0.25' stop-color='%23316488'/%3E%3Cstop offset='0.5' stop-color='%2321958c'/%3E%3Cstop offset='0.75' stop-color='%235ec962'/%3E%3Cstop offset='1' stop-color='%23fde725'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='12' fill='%230b1020'/%3E%3Crect x='10' y='10' width='44' height='44' rx='8' fill='url(%23g)'/%3E%3Cpath d='M20 44 L28 28 L34 34 L44 20' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop offset='0' stop-color='%23440154'/%3E%3Cstop offset='0.25' stop-color='%23316488'/%3E%3Cstop offset='0.5' stop-color='%2321958c'/%3E%3Cstop offset='0.75' stop-color='%235ec962'/%3E%3Cstop offset='1' stop-color='%23fde725'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='180' height='180' rx='36' fill='%230b1020'/%3E%3Crect x='28' y='28' width='124' height='124' rx='24' fill='url(%23g)'/%3E%3Cpath d='M56 122 L78 78 L96 94 L124 56' fill='none' stroke='white' stroke-width='10' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <meta name="twitter:description" content="PFM / CSV ファイルを読み込み、viridis / jet カラーマップで可視化して PNG 保存できるブラウザベースのビューア。">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop offset='0' stop-color='%2300007f'/%3E%3Cstop offset='0.2' stop-color='%23007fff'/%3E%3Cstop offset='0.5' stop-color='%237fff7f'/%3E%3Cstop offset='0.8' stop-color='%23ff7f00'/%3E%3Cstop offset='1' stop-color='%237f0000'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='12' fill='%230b1020'/%3E%3Crect x='10' y='10' width='44' height='44' rx='8' fill='url(%23g)'/%3E%3Cpath d='M20 44 L28 28 L34 34 L44 20' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop offset='0' stop-color='%2300007f'/%3E%3Cstop offset='0.2' stop-color='%23007fff'/%3E%3Cstop offset='0.5' stop-color='%237fff7f'/%3E%3Cstop offset='0.8' stop-color='%23ff7f00'/%3E%3Cstop offset='1' stop-color='%237f0000'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='180' height='180' rx='36' fill='%230b1020'/%3E%3Crect x='28' y='28' width='124' height='124' rx='24' fill='url(%23g)'/%3E%3Cpath d='M56 122 L78 78 L96 94 L124 56' fill='none' stroke='white' stroke-width='10' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
   <style>
     :root { --bg:#0b1020; --panel:#151c33; --panel2:#1b2542; --text:#e8ecf6; --muted:#9fb0d8; --accent:#78a6ff; --border:#2a355d; --danger:#ff6b6b; }
     * { box-sizing:border-box; }
@@ -71,10 +71,10 @@
   <header class="site-header">
     <div class="site-header-inner">
       <div class="brand">
-        <div class="brand-mark" aria-hidden="true"></div>
+        <div id="brandMark" class="brand-mark" aria-hidden="true"></div>
         <div>
           <div class="brand-title">pfm-to-colormap</div>
-          <div class="brand-subtitle">PFM viewer with viridis colormap and PNG export</div>
+          <div id="brandSubtitle" class="brand-subtitle">PFM viewer with viridis / jet colormap and PNG export</div>
         </div>
       </div>
       <div class="header-badge">GitHub Pages Ready</div>
@@ -83,25 +83,33 @@
 
   <div class="wrap">
     <h1>pfm-to-colormap</h1>
-    <div class="subtitle">.pfm をドラッグドロップまたは選択して読み込み、viridis カラーマップで表示して PNG 保存します。</div>
+    <div id="pageSubtitle" class="subtitle">.pfm / .csv をドラッグドロップまたは選択して読み込み、viridis / jet カラーマップで表示して PNG 保存します。</div>
 
     <div class="grid">
       <div class="panel">
         <div id="dropzone" class="dropzone">
-          <div><strong>PFM ファイルをここへドロップ</strong></div>
+          <div><strong>PFM / CSV ファイルをここへドロップ</strong></div>
           <div style="margin-top:8px; color: var(--muted);">または下の選択ボタンで読み込み</div>
         </div>
 
         <div class="row">
-          <label for="fileInput">PFM ファイル</label>
-          <input id="fileInput" type="file" accept=".pfm">
+          <label for="fileInput">PFM / CSV ファイル</label>
+          <input id="fileInput" type="file" accept=".pfm,.csv,text/csv">
         </div>
 
         <div class="row">
           <label for="modeSelect">表示モード</label>
           <select id="modeSelect">
-            <option value="log">log10 後に viridis（既定）</option>
-            <option value="linear">生の float 値を viridis</option>
+            <option value="log">log10 後にカラーマップ（既定）</option>
+            <option value="linear">生の float 値をカラーマップ</option>
+          </select>
+        </div>
+
+        <div class="row">
+          <label for="colormapSelect">カラーマップ</label>
+          <select id="colormapSelect">
+            <option value="viridis">viridis</option>
+            <option value="jet">jet</option>
           </select>
         </div>
 
@@ -111,8 +119,8 @@
         </div>
 
         <div class="row">
-          <label>viridis</label>
-          <div class="legend"></div>
+          <label id="legendLabel">viridis</label>
+          <div id="legend" class="legend"></div>
         </div>
 
         <div class="actions">
@@ -123,7 +131,7 @@
 
         <div class="note">
           log10 モードの既定範囲は 0.1 ～ 1000 です。<br>
-          linear モードの既定範囲は 0 ～ 13 です。<br>
+          linear モードの既定範囲は 1 ～ 13 です。<br>
           0 は log10 モード時に 0.0001 として扱います。<br>
           float 最小値は青、float 最大値は赤で表示します。
         </div>
@@ -138,7 +146,7 @@
           <div class="stat"><div class="k">エンディアン</div><div class="v" id="statEndian">-</div></div>
         </div>
         <div id="canvasWrap" class="canvas-wrap" title="マウスホイールで拡大縮小、左ドラッグで移動、ダブルクリックでリセット">
-          <div id="emptyState" class="empty-state"><div class="empty-card"><div class="empty-title">PFM ファイルを読み込むとここに表示されます</div><div class="empty-text">ドラッグドロップ、または左側のファイル選択から読み込んでください。読み込み後はホイールで拡大縮小、左ドラッグで移動、ダブルクリックで表示をリセットできます。</div></div></div>
+          <div id="emptyState" class="empty-state"><div class="empty-card"><div class="empty-title">PFM / CSV ファイルを読み込むとここに表示されます</div><div class="empty-text">ドラッグドロップ、または左側のファイル選択から読み込んでください。読み込み後はホイールで拡大縮小、左ドラッグで移動、ダブルクリックで表示をリセットできます。</div></div></div>
           <div id="valueOverlay" class="value-overlay"></div>
           <canvas id="canvas"></canvas>
         </div>
@@ -146,37 +154,175 @@
     </div>
   </div>
 
-  <footer class="site-footer"><div class="site-footer-inner"><div>pfm-to-colormap</div><div>PFM → viridis visualization / PNG export</div></div></footer>
+  <footer class="site-footer"><div class="site-footer-inner"><div>pfm-to-colormap</div><div id="footerText">PFM → viridis / jet visualization / PNG export</div></div></footer>
 
-  <script src="data:text/javascript;base64,Y29uc3QgVklSSURJU18yNTY9W1swLjI2NzAwNDAxLDAuMDA0ODc0MzMsMC4zMjk0MTUxOV0sWzAuMjY4NTEwNDgsMC4wMDk2MDQ4MywwLjMzNTQyNjUyXSxbMC4yNjk5NDM4NCwwLjAxNDYyNDk0LDAuMzQxMzc4OTVdLFswLjI3MTMwNDg5LDAuMDE5OTQxODYsMC4zNDcyNjg2Ml0sWzAuMjcyNTkzODQsMC4wMjU1NjMwOSwwLjM1MzA5MzAzXSxbMC4yNzM4MDkzNCwwLjAzMTQ5NzQ4LDAuMzU4ODUyNTZdLFswLjI3NDk1MjQyLDAuMDM3NzUxODEsMC4zNjQ1NDMyM10sWzAuMjc2MDIyMzgsMC4wNDQxNjcyMywwLjM3MDE2NDE4XSxbMC4yNzcwMTg0LDAuMDUwMzQ0MzcsMC4zNzU3MTQ1Ml0sWzAuMjc3OTQxNDMsMC4wNTYzMjQ0NCwwLjM4MTE5MDc0XSxbMC4yNzg3OTA2NywwLjA2MjE0NTM2LDAuMzg2NTkyMDRdLFswLjI3OTU2NTUsMC4wNjc4MzU4NywwLjM5MTkxNzIzXSxbMC4yODAyNjY1OCwwLjA3MzQxNzI0LDAuMzk3MTYzNDldLFswLjI4MDg5MzU4LDAuMDc4OTA3MDMsMC40MDIzMjk0NF0sWzAuMjgxNDQ1ODEsMC4wODQzMTk3LDAuNDA3NDE0MDRdLFswLjI4MTkyMzU4LDAuMDg5NjY2MjIsMC40MTI0MTUyMV0sWzAuMjgyMzI3MzksMC4wOTQ5NTU0NSwwLjQxNzMzMDg2XSxbMC4yODI2NTYzMywwLjEwMDE5NTc2LDAuNDIyMTYwMzJdLFswLjI4MjkxMDQ5LDAuMTA1MzkzNDUsMC40MjY5MDIwMl0sWzAuMjgzMDkwOTUsMC4xMTA1NTMwNywwLjQzMTU1Mzc1XSxbMC4yODMxOTcwNCwwLjExNTY3OTY2LDAuNDM2MTE0ODJdLFswLjI4MzIyODgyLDAuMTIwNzc3MDEsMC40NDA1ODQwNF0sWzAuMjgzMTg2ODQsMC4xMjU4NDc5OSwwLjQ0NDk2MDAwXSxbMC4yODMwNzIsMC4xMzA4OTQ3NywwLjQ0OTI0MTI3XSxbMC4yODI4ODM4OSwwLjEzNTkyMDA1LDAuNDUzNDI3MzRdLFswLjI4MjYyMjk3LDAuMTQwOTI1NTYsMC40NTc1MTcyNl0sWzAuMjgyMjkwMzcsMC4xNDU5MTIzMywwLjQ2MTUwOTk1XSxbMC4yODE4ODY3NiwwLjE1MDg4MTQ3LDAuNDY1NDA0NzRdLFswLjI4MTQxMjI4LDAuMTU1ODM0MjUsMC40NjkyMDEyOF0sWzAuMjgwODY3NzMsMC4xNjA3NzEzMiwwLjQ3Mjg5OTA5XSxbMC4yODAyNTQ2OCwwLjE2NTY5MjcyLDAuNDc2NDk3NjJdLFswLjI3OTU3Mzk5LDAuMTcwNTk4ODQsMC40Nzk5OTY3NV0sWzAuMjc4ODI2MTgsMC4xNzU0OTAyMCwwLjQ4MzM5NjU0XSxbMC4yNzgwMTIzNiwwLjE4MDM2Njg0LDAuNDg2Njk3MDJdLFswLjI3NzEzNDM3LDAuMTg1MjI4MzYsMC40ODk4OTgzMV0sWzAuMjc2MTkzNzYsMC4xOTAwNzQ0NywwLjQ5MzAwMDc0XSxbMC4yNzUxOTExNiwwLjE5NDkwNTQwLDAuNDk2MDA0ODhdLFswLjI3NDEyODAyLDAuMTk5NzIwODYsMC40OTg5MTEzMV0sWzAuMjczMDA1OTYsMC4yMDQ1MjA0OSwwLjUwMTcyMDc2XSxbMC4yNzE4MjgxMiwwLjIwOTMwMzA2LDAuNTA0NDM0MTNdLFswLjI3MDU5NDczLDAuMjE0MDY4OTksMC41MDcwNTI0M10sWzAuMjY5MzA3NTYsMC4yMTg4MTc4MiwwLjUwOTU3Njc4XSxbMC4yNjc5Njg0NiwwLjIyMzU0OTExLDAuNTEyMDA4NDBdLFswLjI2NjU3OTg0LDAuMjI4MjYyMTAsMC41MTQzNDg3MF0sWzAuMjY1MTQ0NTAsMC4yMzI5NTU5MywwLjUxNjU5OTMwXSxbMC4yNjM2NjMyMCwwLjIzNzYzMDc4LDAuNTE4NzYxNjNdLFswLjI2MjEzODAxLDAuMjQyMjg2MTksMC41MjA4MzczNl0sWzAuMjYwNTcxMDMsMC4yNDY5MjE3MCwwLjUyMjgyODIyXSxbMC4yNTg5NjQ1MSwwLjI1MTUzNjg1LDAuNTI0NzM2MDldLFswLjI1NzMyMjQ0LDAuMjU2MTMwNDAsMC41MjY1NjMzMl0sWzAuMjU1NjQ1MTksMC4yNjA3MDI4NCwwLjUyODMxMTUyXSxbMC4yNTM5MzQ5OCwwLjI2NTI1Mzg0LDAuNTI5OTgyNzNdLFswLjI1MjE5NDA0LDAuMjY5NzgzMDYsMC41MzE1NzkwNV0sWzAuMjUwNDI0NjIsMC4yNzQyOTAyNCwwLjUzMzEwMjYxXSxbMC4yNDg2Mjg5OSwwLjI3ODc3NTA5LDAuNTM0NTU1NjFdLFswLjI0NjgxMTQwLDAuMjgzMjM2NjIsMC41MzU5NDA5M10sWzAuMjQ0OTcyMDgsMC4yODc2NzU0NywwLjUzNzI2MDE4XSxbMC4yNDMxMTMyNCwwLjI5MjA5MTU0LDAuNTM4NTE1NjFdLFswLjI0MTIzNzA4LDAuMjk2NDg0NzEsMC41Mzk3MDk0Nl0sWzAuMjM5MzQ1NzUsMC4zMDA4NTQ5NCwwLjU0MDg0Mzk4XSxbMC4yMzc0NDEzOCwwLjMwNTIwMjIyLDAuNTQxOTIxNDBdLFswLjIzNTUyNjA2LDAuMzA5NTI2NTcsMC41NDI5NDM5Nl0sWzAuMjMzNjAyNzcsMC4zMTM4Mjc3MywwLjU0MzkxNDI0XSxbMC4yMzE2NzM1MCwwLjMxODEwNTgwLDAuNTQ0ODM0NDRdLFswLjIyOTczOTI2LDAuMzIyMzYxMjcsMC41NDU3MDYzM10sWzAuMjI3ODAxOTIsMC4zMjY1OTQzMiwwLjU0NjUzMjAwXSxbMC4yMjU4NjMzMCwwLjMzMDgwNTE1LDAuNTQ3MzEzNTNdLFswLjIyMzkyNTE1LDAuMzM0OTk0MDAsMC41NDgwNTI5MV0sWzAuMjIxOTg5MTUsMC4zMzkxNjExNCwwLjU0ODc1MjExXSxbMC4yMjAwNTY5MSwwLjM0MzMwNjg4LDAuNTQ5NDEzMDRdLFswLjIxODEyOTk1LDAuMzQ3NDMxNTQsMC41NTAwMzc1NV0sWzAuMjE2MjA5NzEsMC4zNTE1MzU0OCwwLjU1MDYyNzQzXSxbMC4yMTQyOTc1NywwLjM1NTYxOTA3LDAuNTUxMTg0NDBdLFswLjIxMjM5NDc3LDAuMzU5NjgyNzMsMC41NTE3MTAxMV0sWzAuMjEwNTAzMTAsMC4zNjM3MjY3MSwwLjU1MjIwNjQ2XSxbMC4yMDg2MjM0MiwwLjM2Nzc1MTUxLDAuNTUyNjc0ODZdLFswLjIwNjc1NjI4LDAuMzcxNzU3NzUsMC41NTMxMTY1M10sWzAuMjA0OTAyNTcsMC4zNzU3NDU4OSwwLjU1MzUzMjgyXSxbMC4yMDMwNjMwOSwwLjM3OTcxNjQ0LDAuNTUzOTI1MDVdLFswLjIwMTIzODU0LDAuMzgzNjY5ODksMC41NTQyOTQ0MV0sWzAuMTk5NDI5NTAsMC4zODc2MDY3OCwwLjU1NDY0MjA1XSxbMC4xOTc2MzY1MCwwLjM5MTUyNzYyLDAuNTU0OTY5MDVdLFswLjE5NTg1OTkzLDAuMzk1NDMyOTcsMC41NTUyNzYzN10sWzAuMTk0MTAwMDksMC4zOTkzMjMzNiwwLjU1NTU2NDk0XSxbMC4xOTIzNTcxOSwwLjQwMzE5OTM0LDAuNTU1ODM1NTldLFswLjE5MDYzMTM1LDAuNDA3MDYxNDgsMC41NTYwODkwN10sWzAuMTg4OTIyNTksMC40MTA5MTAzMywwLjU1NjMyNjA2XSxbMC4xODcyMzA4MywwLjQxNDc0NjQ1LDAuNTU2NTQ3MTddLFswLjE4NTU1NTkzLDAuNDE4NTcwNDAsMC41NTY3NTI5Ml0sWzAuMTgzODk3NjMsMC40MjIzODI3NSwwLjU1Njk0Mzc3XSxbMC4xODIyNTU2MSwwLjQyNjE4NDA1LDAuNTU3MTIwMTBdLFswLjE4MDYyOTQ5LDAuNDI5OTc0ODYsMC41NTcyODIyMV0sWzAuMTc5MDE4NzksMC40MzM3NTU3MiwwLjU1NzQzMDM1XSxbMC4xNzc0MjI5OCwwLjQzNzUyNzIwLDAuNTU3NTY0NjZdLFswLjE3NTg0MTQ4LDAuNDQxMjg5ODEsMC41NTc2ODUyNl0sWzAuMTc0MjczNjMsMC40NDUwNDQxMCwwLjU1Nzc5MjE2XSxbMC4xNzI3MTg3NiwwLjQ0ODc5MDYwLDAuNTU3ODg1MzJdLFswLjE3MTE3NjE1LDAuNDUyNTI5ODAsMC41NTc5NjQ2NF0sWzAuMTY5NjQ1NzMsMC40NTYyNjIwOSwwLjU1ODAzMDM0XSxbMC4xNjgxMjY0MSwwLjQ1OTk4ODAyLDAuNTU4MDgxOTldLFswLjE2NjYxNzEwLDAuNDYzNzA4MTMsMC41NTgxMTkxM10sWzAuMTY1MTE3MDMsMC40Njc0MjI5MCwwLjU1ODE0MTQxXSxbMC4xNjM2MjU0MywwLjQ3MTEzMjc4LDAuNTU4MTQ4NDJdLFswLjE2MjE0MTU1LDAuNDc0ODM4MjEsMC41NTgxMzk2N10sWzAuMTYwNjY0NjcsMC40Nzg1Mzk2MSwwLjU1ODExNDY2XSxbMC4xNTkxOTQxMywwLjQ4MjIzNzQwLDAuNTU4MDcyODBdLFswLjE1NzcyOTMzLDAuNDg1OTMxOTcsMC41NTgwMTM0N10sWzAuMTU2MjY5NzMsMC40ODk2MjM3MCwwLjU1NzkzNjAwXSxbMC4xNTQ4MTQ4OCwwLjQ5MzMxMjkzLDAuNTU3ODM5NjddLFswLjE1MzM2NDQ1LDAuNDk3MDAwMDMsMC41NTc3MjM3MV0sWzAuMTUxOTE4MjAsMC41MDA2ODUyOSwwLjU1NzU4NzMzXSxbMC4xNTA0NzYwNSwwLjUwNDM2OTA0LDAuNTU3NDI5NjhdLFswLjE0OTAzOTE4LDAuNTA4MDUxMzYsMC41NTcyNTA1MF0sWzAuMTQ3NjA3MzEsMC41MTE3MzI2MywwLjU1NzA0ODYxXSxbMC4xNDYxODAyNiwwLjUxNTQxMzE2LDAuNTU2ODIyNzFdLFswLjE0NDc1ODYzLDAuNTE5MDkzMTksMC41NTY1NzE4MV0sWzAuMTQzMzQzMjcsMC41MjI3NzI5MiwwLjU1NjI5NDkxXSxbMC4xNDE5MzUyNywwLjUyNjQ1MjU0LDAuNTU1OTkwOTddLFswLjE0MDUzNTk5LDAuNTMwMTMyMTksMC41NTU2NTg5M10sWzAuMTM5MTQ3MDgsMC41MzM4MTIwMSwwLjU1NTI5NzczXSxbMC4xMzc3NzA0OCwwLjUzNzQ5MjEzLDAuNTU0OTA2MjVdLFswLjEzNjQwODUwLDAuNTQxMTcyNjQsMC41NTQ0ODMzOV0sWzAuMTM1MDY1NjEsMC41NDQ4NTMzNSwwLjU1NDAyOTA2XSxbMC4xMzM3NDI5OSwwLjU0ODUzNDU4LDAuNTUzNTQxMDhdLFswLjEzMjQ0NDAxLDAuNTUyMjE2MzcsMC41NTMwMTgyOF0sWzAuMTMxMTcyNDksMC41NTU4OTg3MiwwLjU1MjQ1OTQ4XSxbMC4xMjk5MzI3MCwwLjU1OTU4MTYyLDAuNTUxODYzNTRdLFswLjEyODcyOTM4LDAuNTYzMjY1MDMsMC41NTEyMjkyN10sWzAuMTI3NTY3NzEsMC41NjY5NDg5MSwwLjU1MDU1NTUxXSxbMC4xMjY0NTMzOCwwLjU3MDYzMzE2LDAuNTQ5ODQxMTBdLFswLjEyNTM5MzgzLDAuNTc0MzE3NTQsMC41NDkwODU2NF0sWzAuMTI0Mzk0NzQsMC41NzgwMDIwNSwwLjU0ODI4NzQwXSxbMC4xMjM0NjI4MSwwLjU4MTY4NjYxLDAuNTQ3NDQ0OThdLFswLjEyMjYwNTYyLDAuNTg1MzcxMDUsMC41NDY1NTcyMl0sWzAuMTIxODMxMjIsMC41ODkwNTUyMSwwLjU0NTYyMjk4XSxbMC4xMjExNDgwNywwLjU5MjczODg5LDAuNTQ0NjQxMTRdLFswLjEyMDU2NTAxLDAuNTk2NDIxODcsMC41NDM2MTA1OF0sWzAuMTIwMDkxNTQsMC42MDAxMDM4NywwLjU0MjUzMDQzXSxbMC4xMTk3Mzc1NiwwLjYwMzc4NDU5LDAuNTQxMzk5OTldLFswLjExOTUxMTYzLDAuNjA3NDYzODgsMC41NDAyMTc1MV0sWzAuMTE5NDIzNDEsMC42MTExNDE0NiwwLjUzODk4MTkyXSxbMC4xMTk0ODI1NSwwLjYxNDgxNzAyLDAuNTM3NjkyMTldLFswLjExOTY5ODU4LDAuNjE4NDkwMjUsMC41MzYzNDczM10sWzAuMTIwMDgwNzksMC42MjIxNjA4MSwwLjUzNDk0NjMzXSxbMC4xMjA2MzgyNCwwLjYyNTgyODMzLDAuNTMzNDg4MzRdLFswLjEyMTM3OTcyLDAuNjI5NDkyNDIsMC41MzE5NzI3NV0sWzAuMTIyMzEyNDQsMC42MzMxNTI3NywwLjUzMDM5ODA4XSxbMC4xMjM0NDM1OCwwLjYzNjgwODk5LDAuNTI4NzYzNDNdLFswLjEyNDc3OTUzLDAuNjQwNDYwNjksMC41MjcwNjc5Ml0sWzAuMTI2MzI1ODEsMC42NDQxMDc0NCwwLjUyNTMxMDY5XSxbMC4xMjgwODcwMywwLjY0Nzc0ODgxLDAuNTIzNDkwOTJdLFswLjEzMDA2Njg4LDAuNjUxMzg0MzYsMC41MjE2MDc5MV0sWzAuMTMyMjY3OTcsMC42NTUwMTM2MywwLjUxOTY2MDg2XSxbMC4xMzQ2OTE4MywwLjY1ODYzNjE5LDAuNTE3NjQ4ODBdLFswLjEzNzMzOTIxLDAuNjYyMjUxNTcsMC41MTU1NzEwMV0sWzAuMTQwMjA5OTEsMC42NjU4NTkyNywwLjUxMzQyNjgwXSxbMC4xNDMzMDI5MSwwLjY2OTQ1ODgxLDAuNTExMjE1NDldLFswLjE0NjYxNjQwLDAuNjczMDQ5NjgsMC41MDg5MzY0NF0sWzAuMTUwMTQ3ODIsMC42NzY2MzEzOSwwLjUwNjU4ODkwXSxbMC4xNTM4OTQwNSwwLjY4MDIwMzQzLDAuNTA0MTcyMTddLFswLjE1Nzg1MTQ2LDAuNjgzNzY1MjUsMC41MDE2ODU3NF0sWzAuMTYyMDE1OTgsMC42ODczMTYzMiwwLjQ5OTEyOTA2XSxbMC4xNjYzODMyMCwwLjY5MDg1NjExLDAuNDk2NTAxNjNdLFswLjE3MDk0ODQwLDAuNjk0Mzg0MDUsMC40OTM4MDI5NF0sWzAuMTc1NzA2NzEsMC42OTc4OTk2MCwwLjQ5MTAzMjUyXSxbMC4xODA2NTMxNCwwLjcwMTQwMjIyLDAuNDg4MTg5MzhdLFswLjE4NTc4MjY2LDAuNzA0ODkxMzMsMC40ODUyNzMyNl0sWzAuMTkxMDkwMTgsMC43MDgzNjYzNSwwLjQ4MjI4Mzk1XSxbMC4xOTY1NzA2MywwLjcxMTgyNjY4LDAuNDc5MjIxMDhdLFswLjIwMjIxOTAyLDAuNzE1MjcxNzUsMC40NzYwODQzMV0sWzAuMjA4MDMwNDUsMC43MTg3MDA5NSwwLjQ3Mjg3MzMwXSxbMC4yMTQwMDAxNSwwLjcyMjExMzcxLDAuNDY5NTg3NzRdLFswLjIyMDEyMzgxLDAuNzI1NTA5NDUsMC40NjYyMjYzOF0sWzAuMjI2Mzk2OTAsMC43Mjg4ODc1MywwLjQ2Mjc4OTM0XSxbMC4yMzI4MTQ5OCwwLjczMjI0NzM1LDAuNDU5Mjc2NzVdLFswLjIzOTM3MzkwLDAuNzM1NTg4MjgsMC40NTU2ODgzOF0sWzAuMjQ2MDY5NjgsMC43Mzg5MDk3MiwwLjQ1MjAyNDA1XSxbMC4yNTI4OTg1MSwwLjc0MjIxMTA0LDAuNDQ4MjgzNTVdLFswLjI1OTg1Njc2LDAuNzQ1NDkxNjIsMC40NDQ0NjY3M10sWzAuMjY2OTQxMjcsMC43NDg3NTA4NCwwLjQ0MDU3Mjg0XSxbMC4yNzQxNDkyMiwwLjc1MTk4ODA3LDAuNDM2NjAwOTBdLFswLjI4MTQ3NjgxLDAuNzU1MjAyNjYsMC40MzI1NTIwN10sWzAuMjg4OTIxMDIsMC43NTgzOTM5OSwwLjQyODQyNjI2XSxbMC4yOTY0Nzg5OSwwLjc2MTU2MTQyLDAuNDI0MjIzNDFdLFswLjMwNDE0Nzk2LDAuNzY0NzA0MzMsMC40MTk5NDM0Nl0sWzAuMzExOTI1MzQsMC43Njc4MjIwNywwLjQxNTU4NjM4XSxbMC4zMTk4MDg2MCwwLjc3MDkxNDAzLDAuNDExMTUyMTVdLFswLjMyNzc5NTgwLDAuNzczOTc5NTMsMC40MDY2NDAxMV0sWzAuMzM1ODg1MzksMC43NzcwMTc5MCwwLjQwMjA0OTE3XSxbMC4zNDQwNzQxMSwwLjc4MDAyODU1LDAuMzk3MzgxMDNdLFswLjM1MjM1OTg1LDAuNzgzMDEwODYsMC4zOTI2MzU3OV0sWzAuMzYwNzQwNTMsMC43ODU5NjQxOSwwLjM4NzgxMzUzXSxbMC4zNjkyMTQyMCwwLjc4ODg4NzkzLDAuMzgyOTE0MzhdLFswLjM3Nzc3ODkyLDAuNzkxNzgxNDYsMC4zNzc5Mzg1MF0sWzAuMzg2NDMyODIsMC43OTQ2NDQxNSwwLjM3Mjg4NjA2XSxbMC4zOTUxNzQwOCwwLjc5NzQ3NTQxLDAuMzY3NzU3MjZdLFswLjQwNDAwMTAxLDAuODAwMjc0NjEsMC4zNjI1NTIyM10sWzAuNDEyOTEzNTAsMC44MDMwNDA5OSwwLjM1NzI2ODkzXSxbMC40MjE5MDgxMywwLjgwNTc3NDEyLDAuMzUxOTEwMDldLFswLjQzMDk4MzE3LDAuODA4NDczNDMsMC4zNDY0NzYwN10sWzAuNDQwMTM2OTEsMC44MTExMzgzNiwwLjM0MDk2NzMwXSxbMC40NDkzNjc2MywwLjgxMzc2ODM1LDAuMzM1Mzg0MjZdLFswLjQ1ODY3MzYyLDAuODE2MzYyODgsMC4zMjk3Mjc0OV0sWzAuNDY4MDUzMTQsMC44MTg5MjE0MywwLjMyMzk5NzYxXSxbMC40Nzc1MDQ0NiwwLjgyMTQ0MzUxLDAuMzE4MTk1MjldLFswLjQ4NzAyNTgwLDAuODIzOTI4NjIsMC4zMTIzMjEzM10sWzAuNDk2NjE1MzYsMC44MjYzNzYzMywwLjMwNjM3NjYxXSxbMC41MDYyNzEzMCwwLjgyODc4NjIxLDAuMzAwMzYyMTFdLFswLjUxNTk5MTgyLDAuODMxMTU3ODQsMC4yOTQyNzg4OF0sWzAuNTI1Nzc2MjIsMC44MzM0OTA2NCwwLjI4ODEyNjUwXSxbMC41MzU2MjExMCwwLjgzNTc4NDUyLDAuMjgxOTA4MzJdLFswLjU0NTUyNDQwLDAuODM4MDM5MTgsMC4yNzU2MjYwMl0sWzAuNTU1NDgzOTcsMC44NDAyNTQzNywwLjI2OTI4MTQ3XSxbMC41NjU0OTc2MCwwLjg0MjQyOTkwLDAuMjYyODc2ODNdLFswLjU3NTU2Mjk3LDAuODQ0NTY1NjEsMC4yNTY0MTQ1N10sWzAuNTg1Njc3NzIsMC44NDY2NjEzOSwwLjI0OTg5NzQ4XSxbMC41OTU4MzkzNCwwLjg0ODcxNzIyLDAuMjQzMzI4NzhdLFswLjYwNjA0NTI4LDAuODUwNzMzMTAsMC4yMzY3MTIxNF0sWzAuNjE2MjkyODMsMC44NTI3MDkxMiwwLjIzMDA1MTc5XSxbMC42MjY1NzkyMywwLjg1NDY0NTQzLDAuMjIzMzUyNThdLFswLjYzNjkwMTU3LDAuODU2NTQyMjYsMC4yMTY2MjAxMl0sWzAuNjQ3MjU2ODUsMC44NTgzOTk5MSwwLjIwOTg2MDg2XSxbMC42NTc2NDE5NywwLjg2MDIxODc4LDAuMjAzMDgyMjldLFswLjY2ODA1MzY5LDAuODYxOTk5MzIsMC4xOTYyOTMwN10sWzAuNjc4NDg4NjgsMC44NjM3NDIxMSwwLjE4OTUwMzI2XSxbMC42ODg5NDM1MSwwLjg2NTQ0Nzc5LDAuMTgyNzI0NTVdLFswLjY5OTQxNDYzLDAuODY3MTE3MTEsMC4xNzU5NzA1NV0sWzAuNzA5ODk4NDIsMC44Njg3NTA5MiwwLjE2OTI1NzEyXSxbMC43MjAzOTExNSwwLjg3MDM1MDE1LDAuMTYyNjAyNzNdLFswLjczMDg4OTAyLDAuODcxOTE1ODQsMC4xNTYwMjg5NF0sWzAuNzQxMzg4MDMsMC44NzM0NDkxOCwwLjE0OTU2MTAxXSxbMC43NTE4ODQxNCwwLjg3NDk1MTQzLDAuMTQzMjI4MjhdLFswLjc2MjM3MzQyLDAuODc2NDIzOTIsMC4xMzcwNjQ0OV0sWzAuNzcyODUxODMsMC44Nzc4NjgwOCwwLjEzMTEwODY0XSxbMC43ODMzMTUzNSwwLjg3OTI4NTQ1LDAuMTI1NDA1MzhdLFswLjc5Mzc1OTk0LDAuODgwNjc3NjMsMC4xMjAwMDUzMl0sWzAuODA0MTgxNTksMC44ODIwNDYzMiwwLjExNDk2NTA1XSxbMC44MTQ1NzYzNCwwLjg4MzM5MzI5LDAuMTEwMzQ2NzhdLFswLjgyNDk0MDI4LDAuODg0NzIwMzYsMC4xMDYyMTcyNF0sWzAuODM1MjY5NTksMC44ODYwMjk0MywwLjEwMjY0NTkwXSxbMC44NDU1NjA1NiwwLjg4NzMyMjQzLDAuMDk5NzAyMTldLFswLjg1NTgwOTYwLDAuODg4NjAxMzQsMC4wOTc0NTE4Nl0sWzAuODY2MDEzMjUsMC44ODk4NjgxNSwwLjA5NTk1Mjc3XSxbMC44NzYxNjgyNCwwLjg5MTEyNDg3LDAuMDk1MjUwNDZdLFswLjg4NjI3MTQ2LDAuODkyMzczNTMsMC4wOTUzNzQzOV0sWzAuODk2MzIwMDIsMC44OTM2MTYxNCwwLjA5NjMzNTM4XSxbMC45MDYzMTEyMSwwLjg5NDg1NDY3LDAuMDk4MTI0OTZdLFswLjkxNjI0MjEyLDAuODk2MDkxMjcsMC4xMDA3MTY4MF0sWzAuOTI2MTA1NzksMC44OTczMjk3NywwLjEwNDA3MDY3XSxbMC45MzU5MDQ0NCwwLjg5ODU3MDQwLDAuMTA4MTMwOTRdLFswLjk0NTYzNjI2LDAuODk5ODE1MDAsMC4xMTI4Mzc3M10sWzAuOTU1Mjk5NzIsMC45MDEwNjUzNCwwLjExODEyODMyXSxbMC45NjQ4OTM1MywwLjkwMjMyMzExLDAuMTIzOTQwNTFdLFswLjk3NDQxNjY1LDAuOTAzNTg5OTEsMC4xMzAyMTQ5NF0sWzAuOTgzODY4MjksMC45MDQ4NjcyNiwwLjEzNjg5NjcxXSxbMC45OTMyNDc4OSwwLjkwNjE1NjU3LDAuMTQzOTM2MjBdXTtmdW5jdGlvbiB2aXJpZGlzKE49VklSSURJU18yNTYubGVuZ3RoKXtyZXR1cm4gVklSSURJU18yNTY7fWZ1bmN0aW9uIHZpcmlkaXNBdCh0KXtjb25zdCBQPVZJUklESVNfMjU2Lmxlbmd0aDt0PU1hdGgubWF4KDAsTWF0aC5taW4oMSx0KSk7Y29uc3QgeD10KihQLTEpO2NvbnN0IGowPU1hdGguZmxvb3IoeCk7Y29uc3QgaTE9TWF0aC5taW4oajArMSxQLTEpO2NvbnN0IGY9eC1qMDtjb25zdCBjMD1WSVJJRElTXzI1NltqMF07Y29uc3QgYzE9VklSSURJU18yNTZbajFdO2NvbnN0IHI9YzBbMF0rKGMxWzBdLWMwWzBdKSpmO2NvbnN0IGc9YzBbMV0rKGMxWzFdLWMwWzFdKSpmO2NvbnN0IGI9YzBbMl0rKGMxWzJdLWMwWzJdKSpmO3JldHVybiBbTWF0aC5yb3VuZChyKjI1NSksTWF0aC5yb3VuZChnKjI1NSksTWF0aC5yb3VuZChiKjI1NSldO30="></script>
   <script>
-    const FLOAT32_MIN_SENTINEL = -3.4028234663852886e+38, FLOAT32_MAX_SENTINEL = 3.4028234663852886e+38, LOG_DEFAULT_MIN = 0.1, LOG_DEFAULT_MAX = 1000, LINEAR_DEFAULT_MIN = 0, LINEAR_DEFAULT_MAX = 13, ZERO_REPLACEMENT = 0.0001;
-    const fileInput = document.getElementById('fileInput'), dropzone = document.getElementById('dropzone'), modeSelect = document.getElementById('modeSelect'), minInput = document.getElementById('minInput'), maxInput = document.getElementById('maxInput'), resetBtn = document.getElementById('resetBtn'), resetViewBtn = document.getElementById('resetViewBtn'), downloadBtn = document.getElementById('downloadBtn'), canvasWrap = document.getElementById('canvasWrap'), valueOverlay = document.getElementById('valueOverlay'), emptyState = document.getElementById('emptyState'), canvas = document.getElementById('canvas'), ctx = canvas.getContext('2d'), errorEl = document.getElementById('error'), statName = document.getElementById('statName'), statSize = document.getElementById('statSize'), statType = document.getElementById('statType'), statEndian = document.getElementById('statEndian');
+const VIRIDIS_256 = [
+[0.26700401,0.00487433,0.32941519],[0.26851048,0.00960483,0.33542652],[0.26994384,0.01462494,0.34137895],[0.27130489,0.01994186,0.34726862],[0.27259384,0.02556309,0.35309303],[0.27380934,0.03149748,0.35885256],[0.27495242,0.03775181,0.36454323],[0.27602238,0.04416723,0.37016418],[0.27701840,0.05034437,0.37571452],[0.27794143,0.05632444,0.38119074],[0.27879067,0.06214536,0.38659204],[0.27956550,0.06783587,0.39191723],[0.28026658,0.07341724,0.39716349],[0.28089358,0.07890703,0.40232944],[0.28144581,0.08431970,0.40741404],[0.28192358,0.08966622,0.41241521],[0.28232739,0.09495545,0.41733086],[0.28265633,0.10019576,0.42216032],[0.28291049,0.10539345,0.42690202],[0.28309095,0.11055307,0.43155375],[0.28319704,0.11567966,0.43611482],[0.28322882,0.12077701,0.44058404],[0.28318684,0.12584799,0.44496000],[0.28307200,0.13089477,0.44924127],[0.28288389,0.13592005,0.45342734],[0.28262297,0.14092556,0.45751726],[0.28229037,0.14591233,0.46150995],[0.28188676,0.15088147,0.46540474],[0.28141228,0.15583425,0.46920128],[0.28086773,0.16077132,0.47289909],[0.28025468,0.16569272,0.47649762],[0.27957399,0.17059884,0.47999675],[0.27882618,0.17549020,0.48339654],[0.27801236,0.18036684,0.48669702],[0.27713437,0.18522836,0.48989831],[0.27619376,0.19007447,0.49300074],[0.27519116,0.19490540,0.49600488],[0.27412802,0.19972086,0.49891131],[0.27300596,0.20452049,0.50172076],[0.27182812,0.20930306,0.50443413],[0.27059473,0.21406899,0.50705243],[0.26930756,0.21881782,0.50957678],[0.26796846,0.22354911,0.51200840],[0.26657984,0.22826210,0.51434870],[0.26514450,0.23295593,0.51659930],[0.26366320,0.23763078,0.51876163],[0.26213801,0.24228619,0.52083736],[0.26057103,0.24692170,0.52282822],[0.25896451,0.25153685,0.52473609],[0.25732244,0.25613040,0.52656332],[0.25564519,0.26070284,0.52831152],[0.25393498,0.26525384,0.52998273],[0.25219404,0.26978306,0.53157905],[0.25042462,0.27429024,0.53310261],[0.24862899,0.27877509,0.53455561],[0.24681140,0.28323662,0.53594093],[0.24497208,0.28767547,0.53726018],[0.24311324,0.29209154,0.53851561],[0.24123708,0.29648471,0.53970946],[0.23934575,0.30085494,0.54084398],[0.23744138,0.30520222,0.54192140],[0.23552606,0.30952657,0.54294396],[0.23360277,0.31382773,0.54391424],[0.23167350,0.31810580,0.54483444],[0.22973926,0.32236127,0.54570633],[0.22780192,0.32659432,0.54653200],[0.22586330,0.33080515,0.54731353],[0.22392515,0.33499400,0.54805291],[0.22198915,0.33916114,0.54875211],[0.22005691,0.34330688,0.54941304],[0.21812995,0.34743154,0.55003755],[0.21620971,0.35153548,0.55062743],[0.21429757,0.35561907,0.55118440],[0.21239477,0.35968273,0.55171011],[0.21050310,0.36372671,0.55220646],[0.20862342,0.36775151,0.55267486],[0.20675628,0.37175775,0.55311653],[0.20490257,0.37574589,0.55353282],[0.20306309,0.37971644,0.55392505],[0.20123854,0.38366989,0.55429441],[0.19942950,0.38760678,0.55464205],[0.19763650,0.39152762,0.55496905],[0.19585993,0.39543297,0.55527637],[0.19410009,0.39932336,0.55556494],[0.19235719,0.40319934,0.55583559],[0.19063135,0.40706148,0.55608907],[0.18892259,0.41091033,0.55632606],[0.18723083,0.41474645,0.55654717],[0.18555593,0.41857040,0.55675292],[0.18389763,0.42238275,0.55694377],[0.18225561,0.42618405,0.55712010],[0.18062949,0.42997486,0.55728221],[0.17901879,0.43375572,0.55743035],[0.17742298,0.43752720,0.55756466],[0.17584148,0.44128981,0.55768526],[0.17427363,0.44504410,0.55779216],[0.17271876,0.44879060,0.55788532],[0.17117615,0.45252980,0.55796464],[0.16964573,0.45626209,0.55803034],[0.16812641,0.45998802,0.55808199],[0.16661710,0.46370813,0.55811913],[0.16511703,0.46742290,0.55814141],[0.16362543,0.47113278,0.55814842],[0.16214155,0.47483821,0.55813967],[0.16066467,0.47853961,0.55811466],[0.15919413,0.48223740,0.55807280],[0.15772933,0.48593197,0.55801347],[0.15626973,0.48962370,0.55793600],[0.15481488,0.49331293,0.55783967],[0.15336445,0.49700003,0.55772371],[0.15191820,0.50068529,0.55758733],[0.15047605,0.50436904,0.55742968],[0.14903918,0.50805136,0.55725050],[0.14760731,0.51173263,0.55704861],[0.14618026,0.51541316,0.55682271],[0.14475863,0.51909319,0.55657181],[0.14334327,0.52277292,0.55629491],[0.14193527,0.52645254,0.55599097],[0.14053599,0.53013219,0.55565893],[0.13914708,0.53381201,0.55529773],[0.13777048,0.53749213,0.55490625],[0.13640850,0.54117264,0.55448339],[0.13506561,0.54485335,0.55402906],[0.13374299,0.54853458,0.55354108],[0.13244401,0.55221637,0.55301828],[0.13117249,0.55589872,0.55245948],[0.12993270,0.55958162,0.55186354],[0.12872938,0.56326503,0.55122927],[0.12756771,0.56694891,0.55055551],[0.12645338,0.57063316,0.54984110],[0.12539383,0.57431754,0.54908564],[0.12439474,0.57800205,0.54828740],[0.12346281,0.58168661,0.54744498],[0.12260562,0.58537105,0.54655722],[0.12183122,0.58905521,0.54562298],[0.12114807,0.59273889,0.54464114],[0.12056501,0.59642187,0.54361058],[0.12009154,0.60010387,0.54253043],[0.11973756,0.60378459,0.54139999],[0.11951163,0.60746388,0.54021751],[0.11942341,0.61114146,0.53898192],[0.11948255,0.61481702,0.53769219],[0.11969858,0.61849025,0.53634733],[0.12008079,0.62216081,0.53494633],[0.12063824,0.62582833,0.53348834],[0.12137972,0.62949242,0.53197275],[0.12231244,0.63315277,0.53039808],[0.12344358,0.63680899,0.52876343],[0.12477953,0.64046069,0.52706792],[0.12632581,0.64410744,0.52531069],[0.12808703,0.64774881,0.52349092],[0.13006688,0.65138436,0.52160791],[0.13226797,0.65501363,0.51966086],[0.13469183,0.65863619,0.51764880],[0.13733921,0.66225157,0.51557101],[0.14020991,0.66585927,0.51342680],[0.14330291,0.66945881,0.51121549],[0.14661640,0.67304968,0.50893644],[0.15014782,0.67663139,0.50658890],[0.15389405,0.68020343,0.50417217],[0.15785146,0.68376525,0.50168574],[0.16201598,0.68731632,0.49912906],[0.16638320,0.69085611,0.49650163],[0.17094840,0.69438405,0.49380294],[0.17570671,0.69789960,0.49103252],[0.18065314,0.70140222,0.48818938],[0.18578266,0.70489133,0.48527326],[0.19109018,0.70836635,0.48228395],[0.19657063,0.71182668,0.47922108],[0.20221902,0.71527175,0.47608431],[0.20803045,0.71870095,0.47287330],[0.21400015,0.72211371,0.46958774],[0.22012381,0.72550945,0.46622638],[0.22639690,0.72888753,0.46278934],[0.23281498,0.73224735,0.45927675],[0.23937390,0.73558828,0.45568838],[0.24606968,0.73890972,0.45202405],[0.25289851,0.74221104,0.44828355],[0.25985676,0.74549162,0.44446673],[0.26694127,0.74875084,0.44057284],[0.27414922,0.75198807,0.43660090],[0.28147681,0.75520266,0.43255207],[0.28892102,0.75839399,0.42842626],[0.29647899,0.76156142,0.42422341],[0.30414796,0.76470433,0.41994346],[0.31192534,0.76782207,0.41558638],[0.31980860,0.77091403,0.41115215],[0.32779580,0.77397953,0.40664011],[0.33588539,0.77701790,0.40204917],[0.34407411,0.78002855,0.39738103],[0.35235985,0.78301086,0.39263579],[0.36074053,0.78596419,0.38781353],[0.36921420,0.78888793,0.38291438],[0.37777892,0.79178146,0.37793850],[0.38643282,0.79464415,0.37288606],[0.39517408,0.79747541,0.36775726],[0.40400101,0.80027461,0.36255223],[0.41291350,0.80304099,0.35726893],[0.42190813,0.80577412,0.35191009],[0.43098317,0.80847343,0.34647607],[0.44013691,0.81113836,0.34096730],[0.44936763,0.81376835,0.33538426],[0.45867362,0.81636288,0.32972749],[0.46805314,0.81892143,0.32399761],[0.47750446,0.82144351,0.31819529],[0.48702580,0.82392862,0.31232133],[0.49661536,0.82637633,0.30637661],[0.50627130,0.82878621,0.30036211],[0.51599182,0.83115784,0.29427888],[0.52577622,0.83349064,0.28812650],[0.53562110,0.83578452,0.28190832],[0.54552440,0.83803918,0.27562602],[0.55548397,0.84025437,0.26928147],[0.56549760,0.84242990,0.26287683],[0.57556297,0.84456561,0.25641457],[0.58567772,0.84666139,0.24989748],[0.59583934,0.84871722,0.24332878],[0.60604528,0.85073310,0.23671214],[0.61629283,0.85270912,0.23005179],[0.62657923,0.85464543,0.22335258],[0.63690157,0.85654226,0.21662012],[0.64725685,0.85839991,0.20986086],[0.65764197,0.86021878,0.20308229],[0.66805369,0.86199932,0.19629307],[0.67848868,0.86374211,0.18950326],[0.68894351,0.86544779,0.18272455],[0.69941463,0.86711711,0.17597055],[0.70989842,0.86875092,0.16925712],[0.72039115,0.87035015,0.16260273],[0.73088902,0.87191584,0.15602894],[0.74138803,0.87344918,0.14956101],[0.75188414,0.87495143,0.14322828],[0.76237342,0.87642392,0.13706449],[0.77285183,0.87786808,0.13110864],[0.78331535,0.87928545,0.12540538],[0.79375994,0.88067763,0.12000532],[0.80418159,0.88204632,0.11496505],[0.81457634,0.88339329,0.11034678],[0.82494028,0.88472036,0.10621724],[0.83526959,0.88602943,0.10264590],[0.84556056,0.88732243,0.09970219],[0.85580960,0.88860134,0.09745186],[0.86601325,0.88986815,0.09595277],[0.87616824,0.89112487,0.09525046],[0.88627146,0.89237353,0.09537439],[0.89632002,0.89361614,0.09633538],[0.90631121,0.89485467,0.09812496],[0.91624212,0.89609127,0.10071680],[0.92610579,0.89732977,0.10407067],[0.93590444,0.89857040,0.10813094],[0.94563626,0.89981500,0.11283773],[0.95529972,0.90106534,0.11812832],[0.96489353,0.90232311,0.12394051],[0.97441665,0.90358991,0.13021494],[0.98386829,0.90486726,0.13689671],[0.99324789,0.90615657,0.14393620]
+];
+
+function clamp(v, lo, hi) { return Math.min(hi, Math.max(lo, v)); }
+
+function jetColorAt(t) {
+  t = clamp(t, 0, 1);
+  const tt = -1 + t * 2;
+  const r = clamp(1.5 - Math.abs(2.0 * tt + 1.0), 0.0, 1.0);
+  const g = clamp(1.5 - Math.abs(2.0 * tt), 0.0, 1.0);
+  const b = clamp(1.5 - Math.abs(2.0 * tt - 1.0), 0.0, 1.0);
+  return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+}
+
+function viridisColorAt(t) {
+  const n = VIRIDIS_256.length;
+  const x = clamp(t, 0, 1) * (n - 1);
+  const i0 = Math.floor(x);
+  const i1 = Math.min(n - 1, i0 + 1);
+  const f = x - i0;
+  const c0 = VIRIDIS_256[i0];
+  const c1 = VIRIDIS_256[i1];
+  return [
+    Math.round((c0[0] * (1 - f) + c1[0] * f) * 255),
+    Math.round((c0[1] * (1 - f) + c1[1] * f) * 255),
+    Math.round((c0[2] * (1 - f) + c1[2] * f) * 255)
+  ];
+}
+
+function getColorFromColormap(name, t) {
+  return name === 'jet' ? jetColorAt(1 - t) : viridisColorAt(t);
+}
+  </script>
+  <script>
+    const FLOAT32_MIN_SENTINEL = -3.4028234663852886e+38, FLOAT32_MAX_SENTINEL = 3.4028234663852886e+38, LOG_DEFAULT_MIN = 0.1, LOG_DEFAULT_MAX = 1000, LINEAR_DEFAULT_MIN = 1, LINEAR_DEFAULT_MAX = 13, ZERO_REPLACEMENT = 0.0001;
+    const fileInput = document.getElementById('fileInput'), dropzone = document.getElementById('dropzone'), modeSelect = document.getElementById('modeSelect'), colormapSelect = document.getElementById('colormapSelect'), minInput = document.getElementById('minInput'), maxInput = document.getElementById('maxInput'), resetBtn = document.getElementById('resetBtn'), resetViewBtn = document.getElementById('resetViewBtn'), downloadBtn = document.getElementById('downloadBtn'), canvasWrap = document.getElementById('canvasWrap'), valueOverlay = document.getElementById('valueOverlay'), emptyState = document.getElementById('emptyState'), canvas = document.getElementById('canvas'), ctx = canvas.getContext('2d'), errorEl = document.getElementById('error'), statName = document.getElementById('statName'), statSize = document.getElementById('statSize'), statType = document.getElementById('statType'), statEndian = document.getElementById('statEndian'), legend = document.getElementById('legend'), legendLabel = document.getElementById('legendLabel'), brandMark = document.getElementById('brandMark');
     let current = null, viewScale = 1, viewOffsetX = 0, viewOffsetY = 0, isDragging = false, dragStartX = 0, dragStartY = 0, dragOriginX = 0, dragOriginY = 0, showValueActive = false;
+
+    function updateLegend() {
+      const map = colormapSelect.value;
+      legendLabel.textContent = map;
+      const stops = [];
+      for (let i = 0; i < 11; i++) {
+        const t = i / 10;
+        const [r, g, b] = getColorFromColormap(map, t);
+        stops.push(`rgb(${r},${g},${b}) ${Math.round(t * 100)}%`);
+      }
+      legend.style.background = `linear-gradient(to right, ${stops.join(', ')})`;
+      if (map === 'jet') {
+        brandMark.style.background = 'linear-gradient(90deg, #00007f 0%, #007fff 20%, #7fff7f 50%, #ff7f00 80%, #7f0000 100%)';
+      } else {
+        brandMark.style.background = 'linear-gradient(90deg, #440154 0%, #316488 25%, #21958c 50%, #5ec962 75%, #fde725 100%)';
+      }
+    }
+
     function updateEmptyState(){ if (emptyState) emptyState.style.display = current ? 'none' : 'flex'; }
     function applyCanvasTransform(){ canvas.style.transform = `translate(${viewOffsetX}px, ${viewOffsetY}px) scale(${viewScale})`; }
     function resetView(){ if (!current){ viewScale=1; viewOffsetX=0; viewOffsetY=0; applyCanvasTransform(); updateEmptyState(); return; } const rect = canvasWrap.getBoundingClientRect(); const fitScaleX = rect.width / current.width, fitScaleY = rect.height / current.height; viewScale = Math.min(fitScaleX, fitScaleY); if (!Number.isFinite(viewScale) || viewScale <= 0) viewScale = 1; viewOffsetX = (rect.width - current.width * viewScale) / 2; viewOffsetY = (rect.height - current.height * viewScale) / 2; applyCanvasTransform(); }
     function hideValueOverlay(){ showValueActive = false; valueOverlay.style.display = 'none'; }
     function getImagePointFromClient(clientX, clientY){ if(!current) return null; const rect = canvasWrap.getBoundingClientRect(); const localX = clientX - rect.left, localY = clientY - rect.top; const imageX = Math.floor((localX - viewOffsetX) / viewScale), imageY = Math.floor((localY - viewOffsetY) / viewScale); if (imageX < 0 || imageY < 0 || imageX >= current.width || imageY >= current.height) return null; return { imageX, imageY, localX, localY }; }
     function formatFloatValue(v){ if (Number.isNaN(v)) return 'NaN'; if (isFloatMin(v)) return 'float.MinValue'; if (isFloatMax(v)) return 'float.MaxValue'; if (!Number.isFinite(v)) return String(v); return v.toPrecision(9); }
-    function updateValueOverlay(clientX, clientY){ if (!current) return; const pt = getImagePointFromClient(clientX, clientY); if (!pt){ valueOverlay.style.display='none'; return; } const value = current.values[pt.imageY * current.width + pt.imageX]; valueOverlay.textContent = `x=${pt.imageX}, y=${pt.imageY}
-${formatFloatValue(value)}`; valueOverlay.style.display = 'block'; }
+    function updateValueOverlay(clientX, clientY){ if (!current) return; const pt = getImagePointFromClient(clientX, clientY); if (!pt){ valueOverlay.style.display='none'; return; } const value = current.values[pt.imageY * current.width + pt.imageX]; valueOverlay.textContent = `x=${pt.imageX}, y=${pt.imageY}\n${formatFloatValue(value)}`; valueOverlay.style.display = 'block'; }
     function setDefaultsForMode(mode){ if (mode === 'log'){ minInput.value = String(LOG_DEFAULT_MIN); maxInput.value = String(LOG_DEFAULT_MAX); } else { minInput.value = String(LINEAR_DEFAULT_MIN); maxInput.value = String(LINEAR_DEFAULT_MAX); } }
     function clamp01(v){ return Math.min(1, Math.max(0, v)); }
     function approximatelyEqual(a,b){ if (a === b) return true; const diff=Math.abs(a-b), scale=Math.max(1,Math.abs(a),Math.abs(b)); return diff <= scale * 1e-6; }
     function isFloatMin(v){ return approximatelyEqual(v, FLOAT32_MIN_SENTINEL) || v === Number.NEGATIVE_INFINITY; }
     function isFloatMax(v){ return approximatelyEqual(v, FLOAT32_MAX_SENTINEL) || v === Number.POSITIVE_INFINITY; }
-    function viridisColor01(t){ const n = VIRIDIS_256.length, x = clamp01(t) * (n - 1), i0 = Math.floor(x), i1 = Math.min(n - 1, i0 + 1), f = x - i0, c0 = VIRIDIS_256[i0], c1 = VIRIDIS_256[i1]; return [Math.round((c0[0] * (1 - f) + c1[0] * f) * 255), Math.round((c0[1] * (1 - f) + c1[1] * f) * 255), Math.round((c0[2] * (1 - f) + c1[2] * f) * 255)]; }
     function parsePFM(arrayBuffer){ const bytes = new Uint8Array(arrayBuffer); let pos = 0; function readLine(){ if (pos >= bytes.length) throw new Error('PFM header is truncated.'); let start = pos; while (pos < bytes.length && bytes[pos] !== 0x0A) pos++; let line = new TextDecoder().decode(bytes.slice(start, pos)); if (pos < bytes.length && bytes[pos] === 0x0A) pos++; if (line.endsWith('\r')) line = line.slice(0, -1); return line; } function readNonCommentLine(){ let line = readLine(); while (line.trim().startsWith('#') || line.trim() === '') line = readLine(); return line; } const type = readNonCommentLine(); if (type !== 'PF' && type !== 'Pf') throw new Error('PFM signature must be PF or Pf.'); const dimLine = readNonCommentLine(), dimMatch = dimLine.match(/^(\d+)\s+(\d+)$/); if (!dimMatch) throw new Error('PFM dimensions are invalid.'); const width = Number(dimMatch[1]), height = Number(dimMatch[2]); const scaleLine = readNonCommentLine(), scale = Number(scaleLine); if (!Number.isFinite(scale) || scale === 0) throw new Error('PFM scale/endian line is invalid.'); const littleEndian = scale < 0, channels = type === 'PF' ? 3 : 1, expectedFloats = width * height * channels, expectedBytes = expectedFloats * 4; if (pos + expectedBytes > arrayBuffer.byteLength) throw new Error('PFM pixel data is shorter than expected.'); const view = new DataView(arrayBuffer, pos, expectedBytes), values = new Float32Array(width * height); let p = 0; for (let y = height - 1; y >= 0; y--){ for (let x = 0; x < width; x++){ if (channels === 1){ values[y * width + x] = view.getFloat32(p, littleEndian); p += 4; } else { const r = view.getFloat32(p, littleEndian); p += 4; const g = view.getFloat32(p, littleEndian); p += 4; const b = view.getFloat32(p, littleEndian); p += 4; values[y * width + x] = (r + g + b) / 3; } } } return { width, height, type, littleEndian, values }; }
-    function colorForValue(value, mode, userMin, userMax){ if (Number.isNaN(value)) return [0,0,0]; if (isFloatMin(value)) return [0,0,255]; if (isFloatMax(value)) return [255,0,0]; let mappedValue = value, lo = userMin, hi = userMax; if (mode === 'log'){ if (mappedValue === 0) mappedValue = ZERO_REPLACEMENT; if (mappedValue < 0) return [0,0,0]; mappedValue = Math.log10(mappedValue); lo = Math.log10(userMin); hi = Math.log10(userMax); } if (!Number.isFinite(mappedValue) || !Number.isFinite(lo) || !Number.isFinite(hi) || hi === lo) return [0,0,0]; return viridisColor01((mappedValue - lo) / (hi - lo)); }
-    function render(){ errorEl.textContent=''; if (!current) return; const mode = modeSelect.value, minVal = Number(minInput.value), maxVal = Number(maxInput.value); if (!Number.isFinite(minVal) || !Number.isFinite(maxVal)){ errorEl.textContent = '下限値・上限値は数値で入力してください。'; return; } if (maxVal <= minVal){ errorEl.textContent = '上限値は下限値より大きくしてください。'; return; } if (mode === 'log' && (minVal <= 0 || maxVal <= 0)){ errorEl.textContent = 'log10 モードでは下限値・上限値は 0 より大きい必要があります。'; return; } const { width, height, values } = current; canvas.width = width; canvas.height = height; const image = ctx.createImageData(width, height), out = image.data; for (let i = 0; i < values.length; i++){ const [r,g,b] = colorForValue(values[i], mode, minVal, maxVal), j = i * 4; out[j] = r; out[j+1] = g; out[j+2] = b; out[j+3] = 255; } ctx.putImageData(image, 0, 0); updateEmptyState(); }
-    async function loadPFMFile(file){ errorEl.textContent=''; try { const buf = await file.arrayBuffer(); current = parsePFM(buf); statName.textContent = file.name; statSize.textContent = `${current.width} x ${current.height}`; statType.textContent = current.type === 'PF' ? 'PF (RGB→平均値)' : 'Pf (grayscale)'; statEndian.textContent = current.littleEndian ? 'little endian' : 'big endian'; render(); resetView(); updateEmptyState(); } catch (err){ current = null; ctx.clearRect(0, 0, canvas.width, canvas.height); statName.textContent='未読込'; statSize.textContent='-'; statType.textContent='-'; statEndian.textContent='-'; errorEl.textContent = err instanceof Error ? err.message : String(err); updateEmptyState(); } }
+
+    function parseCSV(textData, fileName){
+      const normalized = textData.replace(/\r\n/g, '\n').replace(/\r/g, '\n').trim();
+      if (!normalized) throw new Error('CSV is empty.');
+      const lines = normalized.split('\n').map(line => line.trim()).filter(line => line !== '');
+      const rows = lines.map(line => line.split(',').map(cell => cell.trim()));
+      if (rows.length < 2) throw new Error('CSV must contain at least header + data rows.');
+
+      const firstRow = rows[0].map(v => Number(v));
+      const hasMetaHeader = rows[0].length === 3 && firstRow.every(Number.isFinite);
+
+      const dataRowsRaw = hasMetaHeader ? rows.slice(1) : rows;
+      const widths = new Set(dataRowsRaw.map(r => r.length));
+      if (widths.size !== 1) throw new Error('CSV rows must have the same number of columns.');
+      const width = dataRowsRaw[0].length;
+      const height = dataRowsRaw.length;
+
+      const values = new Float32Array(width * height);
+      for (let y = 0; y < height; y++) {
+        const row = dataRowsRaw[y];
+        for (let x = 0; x < width; x++) {
+          const v = Number(row[x]);
+          if (!Number.isFinite(v)) {
+            throw new Error(`CSV contains a non-numeric value at row ${y + 1}, col ${x + 1}.`);
+          }
+          values[y * width + x] = v;
+        }
+      }
+
+      let csvInfo = `${width} x ${height}`;
+      if (hasMetaHeader) {
+        csvInfo += ` (header: ${rows[0].join(',')})`;
+      }
+
+      return {
+        width,
+        height,
+        type: 'CSV',
+        littleEndian: null,
+        values,
+        csvInfo
+      };
+    }
+
+    async function loadDataFile(file){
+      const lower = file.name.toLowerCase();
+      if (lower.endsWith('.pfm')) {
+        const buf = await file.arrayBuffer();
+        return parsePFM(buf);
+      }
+      if (lower.endsWith('.csv')) {
+        const txt = await file.text();
+        return parseCSV(txt, file.name);
+      }
+      throw new Error('対応形式は .pfm または .csv です。');
+    }
+
+    function colorForValue(value, mode, userMin, userMax, colormap){
+      if (Number.isNaN(value)) return [0,0,0];
+      if (isFloatMin(value)) return [0,0,255];
+      if (isFloatMax(value)) return [255,0,0];
+      let mappedValue = value, lo = userMin, hi = userMax;
+      if (mode === 'log'){
+        if (mappedValue === 0) mappedValue = ZERO_REPLACEMENT;
+        if (mappedValue < 0) return [0,0,0];
+        mappedValue = Math.log10(mappedValue);
+        lo = Math.log10(userMin);
+        hi = Math.log10(userMax);
+      }
+      if (!Number.isFinite(mappedValue) || !Number.isFinite(lo) || !Number.isFinite(hi) || hi === lo) return [0,0,0];
+      return getColorFromColormap(colormap, (mappedValue - lo) / (hi - lo));
+    }
+    function render(){
+      errorEl.textContent='';
+      if (!current) return;
+      const mode = modeSelect.value, minVal = Number(minInput.value), maxVal = Number(maxInput.value), colormap = colormapSelect.value;
+      if (!Number.isFinite(minVal) || !Number.isFinite(maxVal)){ errorEl.textContent = '下限値・上限値は数値で入力してください。'; return; }
+      if (maxVal <= minVal){ errorEl.textContent = '上限値は下限値より大きくしてください。'; return; }
+      if (mode === 'log' && (minVal <= 0 || maxVal <= 0)){ errorEl.textContent = 'log10 モードでは下限値・上限値は 0 より大きい必要があります。'; return; }
+      const { width, height, values } = current;
+      canvas.width = width; canvas.height = height;
+      const image = ctx.createImageData(width, height), out = image.data;
+      for (let i = 0; i < values.length; i++){
+        const [r,g,b] = colorForValue(values[i], mode, minVal, maxVal, colormap), j = i * 4;
+        out[j] = r; out[j+1] = g; out[j+2] = b; out[j+3] = 255;
+      }
+      ctx.putImageData(image, 0, 0);
+      updateEmptyState();
+    }
+    async function loadPFMFile(file){ errorEl.textContent=''; try { current = await loadDataFile(file); statName.textContent = file.name; statSize.textContent = `${current.width} x ${current.height}`; if (current.type === 'PF') { statType.textContent = 'PF (RGB→平均値)'; statEndian.textContent = current.littleEndian ? 'little endian' : 'big endian'; } else if (current.type === 'Pf') { statType.textContent = 'Pf (grayscale)'; statEndian.textContent = current.littleEndian ? 'little endian' : 'big endian'; } else { statType.textContent = `CSV (${current.csvInfo})`; statEndian.textContent = '-'; } render(); resetView(); updateEmptyState(); } catch (err){ current = null; ctx.clearRect(0, 0, canvas.width, canvas.height); statName.textContent='未読込'; statSize.textContent='-'; statType.textContent='-'; statEndian.textContent='-'; errorEl.textContent = err instanceof Error ? err.message : String(err); updateEmptyState(); } }
     dropzone.addEventListener('click',()=>fileInput.click());
     dropzone.addEventListener('dragover',(e)=>{ e.preventDefault(); dropzone.classList.add('dragover'); });
     dropzone.addEventListener('dragleave',()=>dropzone.classList.remove('dragover'));
     dropzone.addEventListener('drop',(e)=>{ e.preventDefault(); dropzone.classList.remove('dragover'); const file = e.dataTransfer.files && e.dataTransfer.files[0]; if (file) loadPFMFile(file); });
     fileInput.addEventListener('change',()=>{ const file = fileInput.files && fileInput.files[0]; if (file) loadPFMFile(file); });
     modeSelect.addEventListener('change',()=>{ setDefaultsForMode(modeSelect.value); render(); });
+    colormapSelect.addEventListener('change',()=>{ updateLegend(); render(); });
     minInput.addEventListener('input',render); maxInput.addEventListener('input',render);
     resetBtn.addEventListener('click',()=>{ setDefaultsForMode(modeSelect.value); render(); });
     resetViewBtn.addEventListener('click',()=>{ if (current) resetView(); });
@@ -187,8 +333,8 @@ ${formatFloatValue(value)}`; valueOverlay.style.display = 'block'; }
     canvasWrap.addEventListener('pointerup',endDrag); canvasWrap.addEventListener('pointercancel',endDrag); canvasWrap.addEventListener('pointerleave',()=>{ if (!isDragging) hideValueOverlay(); }); canvasWrap.addEventListener('dblclick',()=>{ if (current) resetView(); });
     window.addEventListener('resize',()=>{ if (current) resetView(); });
     function formatFilenameValue(value){ const s = String(value).trim(); if (!s) return 'na'; return s.replace(/\+/g,'').replace(/[^0-9a-zA-Z._-]+/g,'_').replace(/_+/g,'_').replace(/^_+|_+$/g,'') || 'na'; }
-    downloadBtn.addEventListener('click',()=>{ if (!current){ errorEl.textContent = '先に PFM ファイルを読み込んでください。'; return; } const link = document.createElement('a'), base = statName.textContent.replace(/\.pfm$/i,''), minTag = formatFilenameValue(minInput.value), maxTag = formatFilenameValue(maxInput.value); link.href = canvas.toDataURL('image/png'); link.download = `${base || 'pfm-colormap'}_min-${minTag}_max-${maxTag}.png`; link.click(); });
-    setDefaultsForMode('log'); applyCanvasTransform(); updateEmptyState();
+    downloadBtn.addEventListener('click',()=>{ if (!current){ errorEl.textContent = '先に PFM / CSV ファイルを読み込んでください。'; return; } const link = document.createElement('a'), base = statName.textContent.replace(/\.pfm$/i,''), minTag = formatFilenameValue(minInput.value), maxTag = formatFilenameValue(maxInput.value), mapTag = colormapSelect.value; link.href = canvas.toDataURL('image/png'); link.download = `${base || 'pfm-colormap'}_${mapTag}_min-${minTag}_max-${maxTag}.png`; link.click(); });
+    setDefaultsForMode('log'); updateLegend(); applyCanvasTransform(); updateEmptyState();
   </script>
 </body>
 </html>
